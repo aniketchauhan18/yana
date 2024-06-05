@@ -6,7 +6,7 @@ import {
   InternalServerError,
   InvalidRequestBody,
 } from "../utils/errorResponse";
-import Vehicle from "../models/vehicle.schema";
+import Vehicle from "../models/vehicle.model";
 import { VehicleSchemaType } from "../validation/vehicle/vehicle.validation";
 
 export const registerVehicle = async (req: Request, res: Response) => {
@@ -55,7 +55,7 @@ export const getVehicle = async (req: Request, res: Response) => {
 export const updateVehicle = async (req: Request, res: Response) => {
   try {
     const vehicle = await Vehicle.findByIdAndUpdate(
-      { _id: req.params.id },
+      { _id: req.params.id }, // vehicle id
       req.body,
       { runValidators: true },
     );

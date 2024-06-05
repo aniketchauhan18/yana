@@ -9,7 +9,7 @@ import {
   userLoginSchema,
   userRegisterationValidation,
 } from "../validation/user/user.valdiation";
-import User from "../models/user.schema";
+import User from "../models/user.model";
 import { hashPassword, decodePassword } from "../utils/hashPassword";
 import { generateToken } from "../utils/generateToken";
 
