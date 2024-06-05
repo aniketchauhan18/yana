@@ -1,5 +1,14 @@
 {
-  "watch": ["src", "db", "validation", "utils", "routes", "middlewares", "controllers", "models"],
+  "watch": [
+    "src",
+    "db",
+    "validation",
+    "utils",
+    "routes",
+    "middlewares",
+    "controllers",
+    "models"
+  ],
   "ext": "ts",
   "ignore": ["node_modules"],
   "exec": "ts-node ./src/index.ts"
