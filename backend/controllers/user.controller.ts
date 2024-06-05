@@ -13,7 +13,7 @@ export const createUser = async(req: Request, res: Response) => {
   if (!success) {
     return InvalidRequestBody(res)
   }
-  console.log('sssssssssssssssssss')
+  console.log(data)
   try {
     const userExists = await User.findOne({username: data.username});
     const emailExits = await User.findOne({email: data.email});
@@ -24,9 +24,9 @@ export const createUser = async(req: Request, res: Response) => {
       ...data,
       password: hashedPassword
     })
-    
+    return res.status(200).json({message: 'User created successfully'})
   } catch {
-    InternalServerError(res)
+    return InternalServerError(res)
   }
 }
 

@@ -1,22 +1,63 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { IoReorderThreeOutline, IoCloseOutline } from "react-icons/io5";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu'
+import { FaUser } from "react-icons/fa";
+
 
 function Navbar() {
-  const [showDiv, setShowDiv] = useState<boolean>(false)
+  const [showDiv, setShowDiv] = useState<boolean>(false);
+  const [showLogout, setShowLogout] = useState<boolean>(false);
+  const navigateTo = useNavigate()
+  useEffect(() => {
+    const token = localStorage.getItem('quiz-token')
+    if(!token) {
+      navigateTo('/signup')
+    }
+    if (token) {
+      setShowLogout(true)
+    }
+  }, [navigateTo])
 
-  const linkDivClasses: string = "flex text-lg justify-center hover:bg-zinc-100 transition duration-200 ease-in-out rounded-md px-3 py-1"
+  const linkDivClasses: string = "flex text-base justify-center hover:bg-zinc-100 transition duration-200 ease-in-out rounded-md px-3 py-1"
 
   return (
-    <nav className="flex  w-full sm:justify-center max-w-full border-b">
-      <header className=" font-inter flex sm:justify-center gap-3 sm:px-2 py-2 px-2 w-full ">
-        <div className="hidden sm:flex  justify-between px-10 py-2 w-full">
+    <nav className="flex w-full sm:justify-center max-w-full border-b">
+      <header className="font-inter flex sm:justify-center gap-3 sm:px-2 py-2 px-2 w-full ">
+        <div className="hidden sm:flex justify-between px-5 py-2 w-full">
           <div className="">
-            <Link to='/' className={linkDivClasses}>Home</Link>
+            <Link to='/'>Yana</Link>
           </div>
-          <div className="flex gap-5">
-            <Link to={'/restaurants'} className={linkDivClasses}>Restaurants</Link>
-            <Link to={'/login'} className="bg-orange-400 rounded flex px-3 py-1 text-white justify-center items-center">Login</Link>
+          <div>
+          <DropdownMenu>
+            <DropdownMenuTrigger><FaUser className="text-2xl text-zinc-700"/></DropdownMenuTrigger>
+            <DropdownMenuContent className="mr-3 font-inter">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {showLogout ? (
+                  <DropdownMenuItem>
+                  <Link to='/'>
+                    Logout
+                  </Link>  
+                  </DropdownMenuItem>
+              ): <div>
+              <DropdownMenuItem>Signup</DropdownMenuItem>
+              <DropdownMenuItem>Login</DropdownMenuItem>
+            </div>}
+              <DropdownMenuItem>
+                <Link to={'/host/vehicle'}>
+                  Yana your Vehicle
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           </div>
           {/* <ModeToggle /> */}
         </div>
@@ -35,7 +76,7 @@ function Navbar() {
           <Link to='/' onClick={() => setShowDiv(false)}>Home</Link>
           </div>
           <div className={linkDivClasses}>
-          <Link to={'/restaurants'}  onClick={() => setShowDiv(false)}>Restaurants</Link>
+          <Link to={'/create-quiz'}  onClick={() => setShowDiv(false)}>Create Quiz</Link>
           </div>
           <div className={linkDivClasses}>
           <Link to={'/login'} onClick={() => setShowDiv(false)}>Login</Link>

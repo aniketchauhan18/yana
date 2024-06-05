@@ -1,9 +1,8 @@
-import RetroGrid from "@/components/magicui/retro-grid";
+import { CiSearch } from "react-icons/ci";
 
-function Home() {
+function Home(): JSX.Element {
   return (
-    <div className="relative flex  w-full h-screen items-center justify-center overflow-hidden bg-background md:shadow-xl">
-        assnclks
+    <div className="flex flex-col w-full p-2 font-inter">
     </div>
   )
 }

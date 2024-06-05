@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { z } from 'zod';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -21,7 +21,8 @@ interface ObjParams {
 
 function Signup(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
-
+  const navigateTo = useNavigate()
+  
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -46,11 +47,14 @@ function Signup(): JSX.Element {
           "Content-Type": 'application/json',
         },
         body: JSON.stringify(validatedData)
-      })
+      });
+      if (response.ok) navigateTo('/login')
+      if (!response.ok) setError('User already exists')
+      const resData = await response.json();
+      console.log(resData)
     } catch (err) {
       console.error(err)
     }
-    setError(null);
   };
 
   return (
@@ -63,11 +67,11 @@ function Signup(): JSX.Element {
               <AlertDescription className='text-xs'>Oye {error}!!</AlertDescription>
             </Alert>
           )}
-          <Input type="text" placeholder="Username" name='username' />
+          <Input type='text' placeholder="Username" name='username' />
           <Input type="email" placeholder="Email" name='email' />
           <Input type="password" placeholder="Password" name='password' />
           <Button type="submit" className='bg-orange-500 hover:bg-orange-600'>Signup</Button>
-          <p className='text-center text-sm'>Already have an account? <Link to='/login' className='text-orange-600'>Signin</Link></p>
+          <p className='text-center text-sm'>Already have an account? <Link to='/login' className='text-orange-600'>Login</Link></p>
         </div>
       </form>
     </div>

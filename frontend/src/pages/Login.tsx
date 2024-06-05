@@ -1,9 +1,11 @@
 import { Input } from '../components/ui/input'
 import { Button } from '../components/ui/button'
 import { z } from 'zod'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Login(): JSX.Element {
+  const navigateTo = useNavigate();
+
   const validationSchema = z.object({
     email: z.string().email('Enter a valid email address'),
     password: z.string().min(6, 'Enter a valid password')
@@ -35,7 +37,11 @@ function Login(): JSX.Element {
         body: JSON.stringify(validatedData)
       })
       const resData = await response.json()
-      console.log(resData)
+      const loginToken = resData.token
+      localStorage.setItem('quiz-token', loginToken)
+      if(response.ok) {
+        navigateTo('/')
+      }
     } catch (error) {
       console.log(error)
     }
