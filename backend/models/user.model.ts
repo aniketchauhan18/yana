@@ -5,6 +5,7 @@ const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -15,6 +16,26 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  number: {
+    type: Number
+  },
+  country: {
+    type: String
+  },
+  state: {
+    type: String
+  },
+  pincode: {
+    type: Number
+  },
+  address: {
+    type: String
+  },
+  dateOfBirth: {
+    type: Date
+  }
+},{
+  timestamps: true,
 });
 
 const User = mongoose.model("User", UserSchema);
