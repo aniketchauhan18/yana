@@ -1,4 +1,4 @@
-import Navbar from "./Navbar"
+import Navbar from "./Navbar";
 
 function MainComponent({ children }): JSX.Element {
   return (
@@ -6,7 +6,7 @@ function MainComponent({ children }): JSX.Element {
       <Navbar />
       {children}
     </div>
-  )
+  );
 }
 
-export default MainComponent
+export default MainComponent;

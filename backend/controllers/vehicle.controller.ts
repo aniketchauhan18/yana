@@ -90,9 +90,11 @@ export const addMultipleVehicle = async (req: Request, res: Response) => {
       $or: vehicles.map((vehicle) => ({
         ownerId: vehicle.ownerId,
         model: vehicle.model,
-      })) // checking if any of the vehicle already exists
-    })
-    if (checkVehicleExistence) return res.status(200).json({ message: "Some Vehicles already exists" });    const result: VehicleSchemaType[] = await Vehicle.insertMany(vehicles);
+      })), // checking if any of the vehicle already exists
+    });
+    if (checkVehicleExistence)
+      return res.status(200).json({ message: "Some Vehicles already exists" });
+    const result: VehicleSchemaType[] = await Vehicle.insertMany(vehicles);
     return res
       .status(201)
       .json({ message: "Vehicles added successfully", data: result });

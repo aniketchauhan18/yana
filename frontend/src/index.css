@@ -14,3 +14,13 @@
   background-position: center;
   height: 100vh; /* Adjust height as needed */
 }
+
+.hero-text-gradient {
+  background: linear-gradient(
+    to bottom,
+    #616161,
+    #e0e0e0
+  ); /* Define your gradient colors */
+  background-clip: text;
+  color: transparent;
+}

@@ -1,5 +1,10 @@
 import express, { Router } from "express";
-import { createUser, loginUser, getUserById , updateUser} from "../../controllers/user.controller";
+import {
+  createUser,
+  loginUser,
+  getUserById,
+  updateUser,
+} from "../../controllers/user.controller";
 import { authenticateJwt } from "../../middlewares/auth.middleware";
 
 const router: Router = express.Router();

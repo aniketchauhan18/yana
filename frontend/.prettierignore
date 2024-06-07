@@ -1,0 +1,9 @@
+# Ignore all files with the .js extension
+*.js
+
+# Ignore the dist directory and env
+dist/
+.env
+
+# Ignore the node_modules directory
+node_modules/
