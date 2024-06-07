@@ -7,7 +7,7 @@ import {
 } from "../utils/errorResponse";
 import {
   userLoginSchema,
-  userRegisterationValidation,
+  userRegisterationValidation, userUpdateValidation
 } from "../validation/user/user.valdiation";
 import User from "../models/user.model";
 import { hashPassword, decodePassword } from "../utils/hashPassword";
@@ -56,3 +56,33 @@ export const loginUser = async (req: Request, res: Response) => {
     console.error(err);
   }
 };
+
+export const getUserById = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return entityNotFound(res, "User");
+    return res.status(200).json({ user });
+  } catch (err) {
+    return InternalServerError(res);
+  }
+}
+
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { success , data, error } = userUpdateValidation.safeParse(req.body);
+    console.log(error?.errors[0].message)
+    if (!success) return InvalidRequestBody(res);
+    const user = await User.findByIdAndUpdate(
+      { _id : req.params.id },
+      data,
+      { runValidators: true }
+    )
+    const updatedUser = await User.findById(user?._id);
+    return res.status(200).json({
+      message: "User updated successfully",
+      data: updatedUser
+    })
+  } catch (err) {
+    return InternalServerError(res);
+  }
+}

@@ -32,7 +32,7 @@ const UserSchema = new Schema({
     type: String
   },
   dateOfBirth: {
-    type: Date
+    type: String
   }
 },{
   timestamps: true,
