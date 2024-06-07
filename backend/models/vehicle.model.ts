@@ -36,6 +36,7 @@ const VehicleSchema = new Schema(
     },
     isAvailable: {
       type: Boolean,
+      default: true,  
       required: true,
     },
     ownerId: {
