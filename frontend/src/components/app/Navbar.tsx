@@ -45,7 +45,15 @@ function Navbar() {
                 <DropdownMenuSeparator />
                 {showLogout ? (
                   <DropdownMenuItem>
-                    <Link to="/">Logout</Link>
+                    <Link
+                      to="/"
+                      onClick={() => {
+                        setShowLogout(false);
+                        localStorage.removeItem("yana-token");
+                      }}
+                    >
+                      Logout
+                    </Link>
                   </DropdownMenuItem>
                 ) : (
                   <div>
@@ -100,7 +108,7 @@ function Navbar() {
                 </Link>
               </div>
             ) : (
-              <div className={linkDivClasses}>
+              <div className={`${linkDivClasses} gap-3`}>
                 <Link to={"/login"} onClick={() => setShowDiv(false)}>
                   Login
                 </Link>

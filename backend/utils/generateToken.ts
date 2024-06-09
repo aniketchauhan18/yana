@@ -2,7 +2,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { SECRET_KEY } from "../src/config";
 
 export interface customJwtPayload extends JwtPayload {
-  userId: String;
+  userId: string;
 }
 
 export const generateToken = (payload: customJwtPayload): string => {

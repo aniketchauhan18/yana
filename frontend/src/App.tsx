@@ -4,8 +4,9 @@ import MainComponent from "./components/app/MainComponent";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Host";
 import Profile from "./pages/Profile";
+import ImgUpload from "./pages/ImgUpload";
 
 function App() {
   return (
@@ -26,6 +27,14 @@ function App() {
             element={
               <MainComponent>
                 <Profile />
+              </MainComponent>
+            }
+          />
+          <Route
+            path="/img"
+            element={
+              <MainComponent>
+                <ImgUpload />
               </MainComponent>
             }
           />

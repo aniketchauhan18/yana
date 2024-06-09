@@ -15,7 +15,7 @@ import { hashPassword, decodePassword } from "../utils/hashPassword";
 import { generateToken } from "../utils/generateToken";
 
 export const createUser = async (req: Request, res: Response) => {
-  console.log("isnide");
+  console.log("creatUser");
   const { success, data } = userRegisterationValidation.safeParse(req.body);
   if (!success) {
     return InvalidRequestBody(res);

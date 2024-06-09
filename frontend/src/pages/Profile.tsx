@@ -46,7 +46,7 @@ function Profile(): JSX.Element {
       email: formData.get("email") as string,
       username: formData.get("username") as string,
       dateOfBirth: formData.get("dateOfBirth") as string,
-      number: Number(formData.get("number")),
+      number: parseInt(formData.get("number")),
       country: formData.get("country") as string,
       state: formData.get("state") as string,
       pincode: Number(formData.get("pincode")),

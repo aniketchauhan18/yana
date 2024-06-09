@@ -12,8 +12,10 @@ import { VehicleSchemaType } from "../validation/vehicle/vehicle.validation";
 export const registerVehicle = async (req: Request, res: Response) => {
   // const userId: string = req.params.userId
   try {
-    const { success, data } = vehicleSchema.safeParse(req.body);
+    console.log("registerVehicle");
+    const { success, data, error } = vehicleSchema.safeParse(req.body);
     console.log(success);
+    console.log(error?.errors[0].message);
     if (!success || data == undefined) return InvalidRequestBody(res);
     const exists = await Vehicle.findOne({
       mode: data.model,

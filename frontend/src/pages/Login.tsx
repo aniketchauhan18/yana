@@ -2,6 +2,7 @@ import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { z } from "zod";
 import { Link, useNavigate } from "react-router-dom";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 
 function Login(): JSX.Element {
   const navigateTo = useNavigate();
@@ -10,6 +11,10 @@ function Login(): JSX.Element {
     email: z.string().email("Enter a valid email address"),
     password: z.string().min(6, "Enter a valid password"),
   });
+
+  interface customJwtPayload extends JwtPayload {
+    userId: string;
+  }
 
   type FormSchema = z.infer<typeof validationSchema>;
 
@@ -39,6 +44,8 @@ function Login(): JSX.Element {
       const resData = await response.json();
       const loginToken = resData.token;
       localStorage.setItem("yana-token", loginToken);
+      const decode: customJwtPayload = jwtDecode(loginToken);
+      localStorage.setItem("yana-user", decode.userId);
       if (response.ok) {
         navigateTo("/");
       }
