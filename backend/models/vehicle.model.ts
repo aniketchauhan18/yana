@@ -36,9 +36,12 @@ const VehicleSchema = new Schema(
     },
     isAvailable: {
       type: String,
-      enum: ["yes", "no"],
+      enum: ["Yes", "No"],
       default: "yes",
       required: true,
+    },
+    ImageUrls: {
+      type: [String],
     },
     ownerId: {
       type: Schema.Types.ObjectId,

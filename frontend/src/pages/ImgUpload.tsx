@@ -1,8 +1,29 @@
+import * as React from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import * as React from "react";
+import { TfiClose } from "react-icons/tfi";
 
-function ImgUpload() {
+interface Modal {
+  closeModal: () => void;
+}
+
+function ImgUpload({ closeModal }: Modal): JSX.Element {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        closeModal(); // Call the onClose function passed as prop to close the modal
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [closeModal]);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -24,7 +45,13 @@ function ImgUpload() {
 
   return (
     <div className="fixed inset-0 w-full bg-zinc-900/10 bg-opacity-75 p-4 z-50 font-poppins flex justify-center flex-col items-center">
-      <div className="p-3 bg-white border flex flex-col items-center space-y-3 rounded-lg">
+      <div
+        className="p-3 bg-white border flex flex-col items-center space-y-3 rounded-lg"
+        ref={modalRef}
+      >
+        <div className="flex justify-end w-full mr-3">
+          <TfiClose className="text-xl" onClick={closeModal} />
+        </div>
         <p className="font-medium">Upload vehicle images here</p>
         <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
           <Input type="file" name="image" multiple required />

@@ -11,7 +11,7 @@ import { authenticateJwt } from "../../middlewares/auth.middleware";
 
 const router: Router = express.Router();
 
-router.route("/").get(authenticateJwt, getVehicles);
+router.route("/").get(getVehicles);
 router.route("/:id").get(authenticateJwt, getVehicle);
 router.route("/register/:userId").post(authenticateJwt, registerVehicle);
 router.route("/registerMany/:userId").post(authenticateJwt, addMultipleVehicle);

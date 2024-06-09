@@ -12,6 +12,6 @@ console.log("user.routes");
 router.route("/register").post(createUser);
 router.route("/login").post(loginUser);
 router.route("/profile/:id").get(getUserById);
-router.route("/update/:id").put(authenticateJwt, updateUser);
+router.route("/update/:id").patch(authenticateJwt, updateUser);
 
 export default router;

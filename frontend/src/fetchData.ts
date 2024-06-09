@@ -12,3 +12,17 @@ export async function fetchUserData(userId: string) {
     console.log("Error fetching fetchUserData");
   }
 }
+
+export async function fetchVehicles() {
+  try {
+    const response: Response = await fetch(`http://localhost:3001/vehicles`);
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  } catch (err) {
+    console.error(err);
+    console.log("Error fetching vehicles");
+    return;
+  }
+}

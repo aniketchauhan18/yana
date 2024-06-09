@@ -13,8 +13,10 @@ import {
 } from "@/components/ui/select";
 import { z } from "zod";
 import * as React from "react";
+import ImgUpload from "./ImgUpload";
 
 function Dashboard(): JSX.Element {
+  const [showModal, setShowModal] = React.useState<boolean>(false);
   const navigateTo = useNavigate();
 
   const formValidation = z.object({
@@ -25,6 +27,10 @@ function Dashboard(): JSX.Element {
     category: z.string(),
     isAvailable: z.string(),
   });
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   type FormType = z.infer<typeof formValidation>;
 
@@ -62,7 +68,7 @@ function Dashboard(): JSX.Element {
       console.log(data);
       if (response.ok) {
         alert("uploaded successfully");
-        navigateTo("/");
+        setShowModal(true);
       }
     } catch (err) {
       console.log(err);
@@ -160,8 +166,8 @@ function Dashboard(): JSX.Element {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectItem value="yes">Yes</SelectItem>
-                        <SelectItem value="no">No</SelectItem>
+                        <SelectItem value="Yes">Yes</SelectItem>
+                        <SelectItem value="No">No</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -172,6 +178,7 @@ function Dashboard(): JSX.Element {
           </div>
         </div>
       </div>
+      {showModal && <ImgUpload closeModal={closeModal} />}
     </main>
   );
 }
