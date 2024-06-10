@@ -22,7 +22,7 @@ function Host(): JSX.Element {
   const formValidation = z.object({
     make: z.string(),
     model: z.string(),
-    year: z.number(),
+    year: z.string(),
     price: z.number(),
     category: z.string(),
     isAvailable: z.string(),
@@ -40,7 +40,7 @@ function Host(): JSX.Element {
     const formObj: FormType = {
       make: formData.get("make") as string,
       model: formData.get("model") as string,
-      year: parseInt(formData.get("year") as string),
+      year: formData.get("year") as string,
       price: parseInt(formData.get("price") as string),
       category: formData.get("category") as string,
       isAvailable: formData.get("isAvailable") as string,
@@ -127,7 +127,7 @@ function Host(): JSX.Element {
                 </div>
                 <div className="space-y-1">
                   <Label>Year</Label>
-                  <Input type="string" name="year" />
+                  <Input type="month" name="year" />
                 </div>
                 <div className="space-y-1">
                   <Label>Category</Label>

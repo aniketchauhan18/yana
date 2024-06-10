@@ -3,7 +3,7 @@ import * as z from "zod";
 export const vehicleSchema = z.object({
   make: z.string(),
   model: z.string(),
-  year: z.number().int().positive(),
+  year: z.string(),
   price: z.number().int().positive(),
   category: z.enum([
     "Car",

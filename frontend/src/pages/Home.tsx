@@ -5,16 +5,16 @@ import VehicleCard from "@/components/app/VehicleCard";
 import { Link } from "react-router-dom";
 
 export interface VehicleProps {
-  ImageUrls: string[];
+  ImageUrls?: string[];
   make: string;
   category: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   isAvailable: string;
   model: string;
   price: number;
-  year: number;
-  __v: number;
+  year: string;
+  __v?: number;
   _id: string;
   ownerId: string;
 }
