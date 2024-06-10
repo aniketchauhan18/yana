@@ -3,18 +3,21 @@ import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TfiClose } from "react-icons/tfi";
+import { useNavigate } from "react-router-dom";
 
 interface Modal {
   closeModal: () => void;
 }
 
 function ImgUpload({ closeModal }: Modal): JSX.Element {
+  const navigateTo = useNavigate();
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
         closeModal(); // Call the onClose function passed as prop to close the modal
+        navigateTo("/host/dashboard");
       }
     };
 
@@ -23,7 +26,8 @@ function ImgUpload({ closeModal }: Modal): JSX.Element {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [closeModal]);
+  }, [closeModal, navigateTo]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);

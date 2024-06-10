@@ -23,6 +23,35 @@ export async function fetchVehicles() {
   } catch (err) {
     console.error(err);
     console.log("Error fetching vehicles");
-    return;
+  }
+}
+
+export async function fetchUserVehicleData(userId: string) {
+  try {
+    const response: Response = await fetch(
+      `http://localhost:3001/vehicles/user/${userId}`,
+    );
+    if (response.ok) {
+      console.log("fetched user vehicle data");
+    }
+    const data = await response.json();
+    return data.data;
+  } catch (err) {
+    console.log();
+  }
+}
+
+export async function fetchVehicle(vehicleId: string) {
+  try {
+    const response: Response = await fetch(
+      `http://localhost:3001/vehicles/${vehicleId}`,
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  } catch (err) {
+    console.error(err);
+    console.log("Error fetching vehicle");
   }
 }

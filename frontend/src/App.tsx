@@ -4,9 +4,10 @@ import MainComponent from "./components/app/MainComponent";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Host";
+import Host from "./pages/Host";
 import Profile from "./pages/Profile";
-import ImgUpload from "./pages/ImgUpload";
+import DashBoard from "./pages/DashBoard";
+import Vehicle from "./pages/Vehicle";
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
               </MainComponent>
             }
           />
-          <Route path="/become-host/vehicle" element={<Dashboard />} />
+          <Route path="/become-host/vehicle" element={<Host />} />
+          <Route path="/host/dashboard" element={<DashBoard />} />
           <Route
             path="/profile/:id"
             element={
@@ -30,14 +32,7 @@ function App() {
               </MainComponent>
             }
           />
-          <Route
-            path="/img"
-            element={
-              <MainComponent>
-                <ImgUpload />
-              </MainComponent>
-            }
-          />
+          <Route path="/host/vehicle/:id" element={<Vehicle />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
         </Routes>

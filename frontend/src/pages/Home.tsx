@@ -2,8 +2,9 @@ import { CiSearch } from "react-icons/ci";
 import { useQuery } from "@tanstack/react-query";
 import { fetchVehicles } from "@/fetchData";
 import VehicleCard from "@/components/app/VehicleCard";
+import { Link } from "react-router-dom";
 
-export interface VehicleData {
+export interface VehicleProps {
   ImageUrls: string[];
   make: string;
   category: string;
@@ -57,8 +58,12 @@ function Home(): JSX.Element {
         </div>
       </form>
       <div className=" grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 w-full mt-10 rounded-t-lg h-auto p-3">
-        {vehicles.map((vehicle: VehicleData) => {
-          return <VehicleCard key={vehicle._id} vehicle={vehicle} />;
+        {vehicles.map((vehicle: VehicleProps) => {
+          return (
+            <Link to={"/"}>
+              <VehicleCard key={vehicle._id} vehicle={vehicle} />
+            </Link>
+          );
         })}
       </div>
     </main>

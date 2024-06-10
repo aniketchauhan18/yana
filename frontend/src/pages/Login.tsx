@@ -14,6 +14,7 @@ function Login(): JSX.Element {
 
   interface customJwtPayload extends JwtPayload {
     userId: string;
+    username: string;
   }
 
   type FormSchema = z.infer<typeof validationSchema>;
@@ -46,6 +47,7 @@ function Login(): JSX.Element {
       localStorage.setItem("yana-token", loginToken);
       const decode: customJwtPayload = jwtDecode(loginToken);
       localStorage.setItem("yana-user", decode.userId);
+      localStorage.setItem("yana-username", decode.username);
       if (response.ok) {
         navigateTo("/");
       }

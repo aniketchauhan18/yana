@@ -168,7 +168,7 @@ function Profile(): JSX.Element {
             </div>
             <div className="w-full flex justify-center mt-5">
               <Button className=" w-full sm:w-96" type="submit">
-                Save
+                Update
               </Button>
             </div>
           </form>

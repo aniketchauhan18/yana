@@ -49,7 +49,10 @@ export const loginUser = async (req: Request, res: Response) => {
     const decodedPassword = await decodePassword(data.password, email.password);
     if (!decodedPassword)
       return res.status(401).json({ message: "invalid password" });
-    const token = generateToken({ userId: email._id.toString() });
+    const token = generateToken({
+      userId: email._id.toString(),
+      username: email.username,
+    });
     return res.status(200).json({
       token,
     });

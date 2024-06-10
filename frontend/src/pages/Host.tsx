@@ -15,7 +15,7 @@ import { z } from "zod";
 import * as React from "react";
 import ImgUpload from "./ImgUpload";
 
-function Dashboard(): JSX.Element {
+function Host(): JSX.Element {
   const [showModal, setShowModal] = React.useState<boolean>(false);
   const navigateTo = useNavigate();
 
@@ -183,4 +183,4 @@ function Dashboard(): JSX.Element {
   );
 }
 
-export default Dashboard;
+export default Host;

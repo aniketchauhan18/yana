@@ -54,6 +54,18 @@ export const getVehicle = async (req: Request, res: Response) => {
   }
 };
 
+export const getVehicleByUserId = async (req: Request, res: Response) => {
+  try {
+    const vehicles = await Vehicle.find({
+      ownerId: req.params.id,
+    });
+    if (!vehicles) return entityNotFound(res, "Vehicles");
+    return res.status(200).json({ data: vehicles });
+  } catch (err) {
+    return InternalServerError(res);
+  }
+};
+
 export const updateVehicle = async (req: Request, res: Response) => {
   try {
     const vehicle = await Vehicle.findByIdAndUpdate(
