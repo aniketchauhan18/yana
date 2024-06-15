@@ -1,8 +1,9 @@
-import { CiSearch } from "react-icons/ci";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchVehicles } from "@/fetchData";
 import VehicleCard from "@/components/app/VehicleCard";
+import { fetchVehicles } from "@/fetchData";
 import { Link } from "react-router-dom";
+import { CiSearch } from "react-icons/ci";
 
 export interface VehicleProps {
   ImageUrls?: string[];
@@ -19,6 +20,9 @@ export interface VehicleProps {
   ownerId: string;
 }
 function Home(): JSX.Element {
+  const [currentData, setCurrentData] = useState<VehicleProps[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
   const {
     data: vehicles,
     isLoading,
@@ -29,9 +33,26 @@ function Home(): JSX.Element {
     staleTime: Infinity,
   });
 
-  console.log(vehicles);
+  useEffect(() => {
+    if (vehicles) {
+      if (selectedCategory) {
+        const filteredData = vehicles.filter(
+          (vehicle: VehicleProps) => vehicle.category === selectedCategory,
+        );
+        setCurrentData(filteredData);
+      } else {
+        setCurrentData(vehicles);
+      }
+    }
+  }, [vehicles, selectedCategory]);
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
+
+  const handleCategory = (category: string) => {
+    setSelectedCategory(category);
+  };
+  console.log(1);
 
   return (
     <main className="flex flex-col w-full font-poppins overflow-x-hidden">
@@ -41,7 +62,7 @@ function Home(): JSX.Element {
           <p>Rental Platform</p>
         </div>
       </div>
-      <form className="flex w-full justify-center font-inter">
+      {/* <form className="flex w-full justify-center font-inter">
         <div className="border pl-3  items-center rounded-full flex gap-3">
           <div className=" ">
             <input
@@ -56,12 +77,70 @@ function Home(): JSX.Element {
             </button>
           </div>
         </div>
-      </form>
+      </form> */}
+      <div className="my-10 flex w-full justify-center">
+        <div className="inline-flex overflow-x-auto hide-scrollbar  p-2 rounded-full space-x-3">
+          <div
+            className="bg-gray-100 rounded-full px-4 py-1"
+            onClick={() => handleCategory("Car")}
+          >
+            Car
+          </div>
+          <div
+            className="bg-gray-100 rounded-full px-4 py-1"
+            onClick={() => handleCategory("Truck")}
+          >
+            Truck
+          </div>
+          <div
+            className="bg-gray-100 rounded-full px-4 py-1"
+            onClick={() => handleCategory("Motorcycle")}
+          >
+            Motorcycle
+          </div>
+          <div
+            className="bg-gray-100 rounded-full px-4 py-1"
+            onClick={() => handleCategory("Bus")}
+          >
+            Bus
+          </div>
+          <div
+            className="bg-gray-100 rounded-full px-4 py-1"
+            onClick={() => handleCategory("Van")}
+          >
+            Van
+          </div>
+          <div
+            className="bg-gray-100 rounded-full px-4 py-1"
+            onClick={() => handleCategory("Suv")}
+          >
+            Suv
+          </div>
+          <div
+            className="bg-gray-100 rounded-full px-4 py-1"
+            onClick={() => handleCategory("Bike")}
+          >
+            Bike
+          </div>
+          <div
+            className="bg-gray-100 rounded-full px-4 py-1"
+            onClick={() => handleCategory("Bicycle")}
+          >
+            Bicycle
+          </div>
+          <div
+            className="bg-gray-100 rounded-full px-4 py-1"
+            onClick={() => handleCategory("Other")}
+          >
+            Other
+          </div>
+        </div>
+      </div>
       <div className=" grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 w-full mt-10 rounded-t-lg h-auto p-3">
-        {vehicles.map((vehicle: VehicleProps) => {
+        {currentData.map((vehicle: VehicleProps) => {
           return (
-            <Link to={"/"}>
-              <VehicleCard key={vehicle._id} vehicle={vehicle} />
+            <Link to={"/"} key={vehicle._id}>
+              <VehicleCard vehicle={vehicle} />
             </Link>
           );
         })}

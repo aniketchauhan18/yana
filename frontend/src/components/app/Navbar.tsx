@@ -108,11 +108,19 @@ function Navbar() {
                 </Link>
               </div>
             ) : (
-              <div className={`${linkDivClasses} gap-3`}>
-                <Link to={"/login"} onClick={() => setShowDiv(false)}>
+              <div className={` flex-col space-y-7`}>
+                <Link
+                  className={linkDivClasses}
+                  to={"/login"}
+                  onClick={() => setShowDiv(false)}
+                >
                   Login
                 </Link>
-                <Link to={"/signup"} onClick={() => setShowDiv(false)}>
+                <Link
+                  className={linkDivClasses}
+                  to={"/signup"}
+                  onClick={() => setShowDiv(false)}
+                >
                   Signup
                 </Link>
               </div>

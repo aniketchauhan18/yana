@@ -55,7 +55,7 @@ const VehicleSchema = new Schema(
     bookedBy: {
       type: Schema.Types.ObjectId,
       ref: "User",
-    }
+    },
   },
   {
     timestamps: true,

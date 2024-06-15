@@ -24,3 +24,8 @@
   background-clip: text;
   color: transparent;
 }
+
+/* src/index.css */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
