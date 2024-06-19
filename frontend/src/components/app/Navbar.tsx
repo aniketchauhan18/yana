@@ -108,7 +108,7 @@ function Navbar() {
                 </Link>
               </div>
             ) : (
-              <div className={` flex-col space-y-7`}>
+              <div className={`flex-col space-y-7`}>
                 <Link
                   className={linkDivClasses}
                   to={"/login"}

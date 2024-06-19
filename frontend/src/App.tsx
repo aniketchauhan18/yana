@@ -8,6 +8,7 @@ import Host from "./pages/Host";
 import Profile from "./pages/Profile";
 import DashBoard from "./pages/DashBoard";
 import Vehicle from "./pages/Vehicle";
+import Rent from "./pages/Rent";
 
 function App() {
   return (
@@ -29,6 +30,14 @@ function App() {
             element={
               <MainComponent>
                 <Profile />
+              </MainComponent>
+            }
+          />
+          <Route
+            path="/rent/vehicle/:id"
+            element={
+              <MainComponent>
+                <Rent />
               </MainComponent>
             }
           />

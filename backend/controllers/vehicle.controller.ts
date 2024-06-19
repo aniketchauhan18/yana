@@ -33,7 +33,7 @@ export const registerVehicle = async (req: Request, res: Response) => {
 
 export const getVehicles = async (req: Request, res: Response) => {
   try {
-    const vehicles = await Vehicle.find();
+    const vehicles = await Vehicle.find({ isAvailable: "Yes"});
     return res.status(200).json({ data: vehicles });
   } catch (err) {
     console.log("inside register vehicle");

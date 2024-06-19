@@ -1,9 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import VehicleCard from "@/components/app/VehicleCard";
 import { fetchVehicles } from "@/fetchData";
 import { Link } from "react-router-dom";
-import { CiSearch } from "react-icons/ci";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export interface VehicleProps {
   ImageUrls?: string[];
@@ -46,6 +54,14 @@ function Home(): JSX.Element {
     }
   }, [vehicles, selectedCategory]);
 
+  // const sortedVehicles = useMemo(() => {
+  //   return vehicles.sort((a: VehicleProps, b: VehicleProps) => {
+  //     if (sortBy === "price") {
+  //       return a.price - b.price
+  //     }
+  //   })
+  // }, [sortBy, vehicles])
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
 
@@ -54,8 +70,11 @@ function Home(): JSX.Element {
   };
   console.log(1);
 
+  const categoryClasses: string =
+    "bg-gray-100 rounded-full px-4 py-1 hover:cursor-pointer";
+
   return (
-    <main className="flex flex-col w-full font-poppins overflow-x-hidden">
+    <main className="flex flex-col w-full font-poppins overflow-x-hidden p-4">
       <div className="flex flex-col h-52 justify-center items-center">
         <div className="text-3xl sm:text-6xl flex sm:gap-3 flex-col justify-center items-center font-bold hero-text-gradient h-full">
           <p>Your Trusted Vehicle</p>
@@ -81,65 +100,91 @@ function Home(): JSX.Element {
       <div className="my-10 flex w-full justify-center">
         <div className="inline-flex overflow-x-auto hide-scrollbar  p-2 rounded-full space-x-3">
           <div
-            className="bg-gray-100 rounded-full px-4 py-1"
+            className={categoryClasses}
             onClick={() => handleCategory("Car")}
           >
             Car
           </div>
           <div
-            className="bg-gray-100 rounded-full px-4 py-1"
+            className={categoryClasses}
             onClick={() => handleCategory("Truck")}
           >
             Truck
           </div>
           <div
-            className="bg-gray-100 rounded-full px-4 py-1"
+            className={categoryClasses}
             onClick={() => handleCategory("Motorcycle")}
           >
             Motorcycle
           </div>
           <div
-            className="bg-gray-100 rounded-full px-4 py-1"
+            className={categoryClasses}
             onClick={() => handleCategory("Bus")}
           >
             Bus
           </div>
           <div
-            className="bg-gray-100 rounded-full px-4 py-1"
+            className={categoryClasses}
             onClick={() => handleCategory("Van")}
           >
             Van
           </div>
           <div
-            className="bg-gray-100 rounded-full px-4 py-1"
+            className={categoryClasses}
             onClick={() => handleCategory("Suv")}
           >
             Suv
           </div>
           <div
-            className="bg-gray-100 rounded-full px-4 py-1"
+            className={categoryClasses}
             onClick={() => handleCategory("Bike")}
           >
             Bike
           </div>
           <div
-            className="bg-gray-100 rounded-full px-4 py-1"
+            className={categoryClasses}
             onClick={() => handleCategory("Bicycle")}
           >
             Bicycle
           </div>
           <div
-            className="bg-gray-100 rounded-full px-4 py-1"
+            className={categoryClasses}
             onClick={() => handleCategory("Other")}
           >
             Other
           </div>
         </div>
       </div>
-      <div className=" grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 w-full mt-10 rounded-t-lg h-auto p-3">
+      <div className="border-b" />
+      <div className="mt-4 p-3 flex sm:flex-row items-center justify-between">
+        <p className="font-bold text-zinc-700 text-xl sm:text-2xl flex">
+          Available Vehicles
+        </p>
+        <div className="flex justify-between mt-3 sm:mt-0 space-x-4">
+          <div className="flex items-center">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="flex items-center gap-2">
+                  Sort by:
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-16 border">
+                <DropdownMenuRadioGroup className="font-inter ">
+                  <DropdownMenuRadioItem value="price">
+                    Price
+                  </DropdownMenuRadioItem>
+                  {/* <DropdownMenuRadioItem value="rating">Rating</DropdownMenuRadioItem> */}
+                  {/* <DropdownMenuRadioItem value="make">Make</DropdownMenuRadioItem> */}
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
+      </div>
+      <div className=" grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 w-full mt-10 rounded-t-lg h-auto">
         {currentData.map((vehicle: VehicleProps) => {
           return (
-            <Link to={"/"} key={vehicle._id}>
+            <Link to={`/rent/vehicle/${vehicle._id}`} key={vehicle._id}>
               <VehicleCard vehicle={vehicle} />
             </Link>
           );
