@@ -7,9 +7,11 @@ import { CiUser, CiMail } from "react-icons/ci";
 import { IoCallOutline } from "react-icons/io5";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 function Rent(): JSX.Element {
   const { id } = useParams<string>();
+
 
   const {
     data: vehicle,
@@ -34,6 +36,46 @@ function Rent(): JSX.Element {
 
   if (isVehicleLoading || isOwnerLoading) return <div>Loading...</div>;
   if (vehicleError || ownerError) return <div>Error aa gya re bidu</div>;
+
+  const checkout = async(amount: number) => {
+    const keyResponse = await fetch("http://localhost:3001/payments/key");
+    const {key} = await keyResponse.json();
+
+    const response = await fetch("http://localhost:3001/payments/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({amount}),
+    });
+    const {order} = await response.json();
+    console.log(order);
+    console.log(owner)
+
+    const options = {
+      key: key, // Enter the Key ID generated from the Dashboard
+      amount: "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: "INR",
+      name: "Acme Corp",
+      description: "Test Transaction",
+      image: "https://example.com/your_logo",
+      order_id: "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      callback_url: "http://localhost:3001/payments/verification",
+      prefill: {
+          "name": owner.username,
+          "email": owner.email,
+          "contact": owner.number
+      },
+      notes: {
+          "address": "Razorpay Corporate Office"
+      },
+      theme: {
+          "color": "#3399cc"
+      }
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open()
+  }
 
   return (
     <main className="p-6 text-zinc-800 sm:h-screen flex items-center w-full mb-24">
@@ -79,11 +121,12 @@ function Rent(): JSX.Element {
           <div className="border-b" />
           <div className="grid border p-3 w-full max-w-sm sm:max-w-xl  rounded-md bg-zinc-100/40 space-y-3">
             <div className="grid">
-              <h1 className="text-xl font-bold">Booking Summary</h1>
+              <h1 className="text-xl font-bold">Booking Now</h1>
               <h2 className="text-sm text-zinc-500">
                 Review the details of your upcoming rental.
               </h2>
             </div>
+            <Button onClick={() => checkout(vehicle?.price)}>Book Now</Button>
           </div>
         </div>
       </div>

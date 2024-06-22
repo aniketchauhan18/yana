@@ -88,12 +88,12 @@ function Host(): JSX.Element {
       </div>
       <div className="flex justify-center font-inter pt-10">
         <div className="flex flex-col lg:flex-row justify-between items-center w-full px-5 lg:gap-0">
-          <div className="flex flex-col items-center justify-center lg:w-1/2 lg:h-full">
+          <div className="flex flex-col items-center justify-center lg:w-1/2 lg:h-full ">
             <p className="text-3xl flex pt-10  lg:text-6xl font-bold mb-5">
               Want to Rent ?
             </p>
             <div className="hidden lg:flex lg:flex-col mt-6">
-              <p className="text-xl mb-3">
+              <p className="text-xl mb-3 bg-orange-400 px-1 text-white">
                 Benefits of Renting Out Your Vehicle
               </p>
               <ul className="text-zinc-400 space-y-3">
@@ -108,10 +108,10 @@ function Host(): JSX.Element {
           </div>
           <div className="flex font-inter justify-center w-full max-w-xl items-center lg:h-[80vh]  lg:w-1/2 ">
             <form
-              className=" flex flex-col justify-center items-center p-5 w-full h-full"
+              className=" flex flex-col justify-center items-center p-5 w-full h-full "
               onSubmit={handleSubmit}
             >
-              <div className=" border rounded-lg p-5 flex flex-col text-sm gap-5 text-zinc-700 bg-white/20 font-normal w-full">
+              <div className=" border rounded-lg p-5 flex flex-col text-sm gap-5 text-zinc-700 bg-zinc-100/20 font-normal w-full">
                 <div className="space-y-1">
                   <Label>Manufacturer</Label>
                   <Input type="text" name="make" placeholder="Essay" required />

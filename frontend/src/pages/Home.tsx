@@ -29,7 +29,8 @@ export interface VehicleProps {
 }
 function Home(): JSX.Element {
   const [currentData, setCurrentData] = useState<VehicleProps[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  // const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [filteredVehicle, setFilteredVehicle] = useState<string>("");
 
   const {
     data: vehicles,
@@ -41,18 +42,18 @@ function Home(): JSX.Element {
     staleTime: Infinity,
   });
 
-  useEffect(() => {
-    if (vehicles) {
-      if (selectedCategory) {
-        const filteredData = vehicles.filter(
-          (vehicle: VehicleProps) => vehicle.category === selectedCategory,
-        );
-        setCurrentData(filteredData);
-      } else {
-        setCurrentData(vehicles);
-      }
-    }
-  }, [vehicles, selectedCategory]);
+  // useEffect(() => {
+  //   if (vehicles) {
+  //     if (selectedCategory) {
+  //       const filteredData = vehicles.filter(
+  //         (vehicle: VehicleProps) => vehicle.category === selectedCategory,
+  //       );
+  //       setCurrentData(filteredData);
+  //     } else {
+  //       setCurrentData(vehicles);
+  //     }
+  //   }
+  // }, [vehicles, selectedCategory]);
 
   // const sortedVehicles = useMemo(() => {
   //   return vehicles.sort((a: VehicleProps, b: VehicleProps) => {
@@ -62,13 +63,22 @@ function Home(): JSX.Element {
   //   })
   // }, [sortBy, vehicles])
 
+  // const sortedVehicles = useMemo(() => {
+  //   return 
+  // }, [vehicles])
+
+  const filteredData = useMemo(() => {
+    return vehicles?.filter((vehicle: VehicleProps) => {
+      return filteredVehicle ? vehicle.make.toLowerCase().includes(filteredVehicle.toLowerCase()) : true
+    })
+  }, [vehicles, filteredVehicle])
+
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
 
-  const handleCategory = (category: string) => {
-    setSelectedCategory(category);
-  };
   console.log(1);
+
 
   const categoryClasses: string =
     "bg-gray-100 rounded-full px-4 py-1 hover:cursor-pointer";
@@ -157,12 +167,12 @@ function Home(): JSX.Element {
       </div>
       <div className="border-b" />
       <div className="mt-4 p-3 flex sm:flex-row items-center justify-between">
-        <p className="font-bold text-zinc-700 text-xl sm:text-2xl flex">
-          Available Vehicles
-        </p>
-        <div className="flex justify-between mt-3 sm:mt-0 space-x-4">
-          <div className="flex items-center">
-            <DropdownMenu>
+        <div className="flex justify-between mt-3 sm:mt-0 space-x-4 w-full">
+          <p className="font-bold text-zinc-700 text-base sm:text-2xl flex items-center">
+            Available Vehicles
+          </p>
+          <div className="flex ">
+            {/* <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="flex items-center gap-2">
                   Sort by:
@@ -173,16 +183,22 @@ function Home(): JSX.Element {
                   <DropdownMenuRadioItem value="price">
                     Price
                   </DropdownMenuRadioItem>
-                  {/* <DropdownMenuRadioItem value="rating">Rating</DropdownMenuRadioItem> */}
-                  {/* <DropdownMenuRadioItem value="make">Make</DropdownMenuRadioItem> */}
+                  <DropdownMenuRadioItem value="rating">Rating</DropdownMenuRadioItem> 
+                  <DropdownMenuRadioItem value="make">Make</DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
               </DropdownMenuContent>
-            </DropdownMenu>
+            </DropdownMenu> */}
+            <Input 
+              placeholder="Search"
+              className="max-w-36 sm:max-w-52"
+              value={filteredVehicle}
+              onChange={(e) => setFilteredVehicle(e.target.value)}
+            />
           </div>
         </div>
       </div>
       <div className=" grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 w-full mt-10 rounded-t-lg h-auto">
-        {currentData.map((vehicle: VehicleProps) => {
+        {filteredData.map((vehicle: VehicleProps) => {
           return (
             <Link to={`/rent/vehicle/${vehicle._id}`} key={vehicle._id}>
               <VehicleCard vehicle={vehicle} />

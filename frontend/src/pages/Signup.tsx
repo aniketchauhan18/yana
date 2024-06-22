@@ -58,9 +58,9 @@ function Signup(): JSX.Element {
   };
 
   return (
-    <div className="flex justify-center font-inter items-center w-full h-screen">
+    <div className="flex justify-center font-inter items-center w-full h-screen bg-svg-pattern">
       <form
-        className="flex flex-col border p-4 rounded w-72 max-w-96 bg-white/30"
+        className="flex flex-col border p-4 rounded w-72 max-w-96 bg-white/10"
         onSubmit={handleSubmit}
       >
         <div className="flex flex-col gap-3">
