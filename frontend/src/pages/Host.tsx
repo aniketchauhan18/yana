@@ -137,7 +137,7 @@ function Host(): JSX.Element {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectItem value="car">Car</SelectItem>
+                        <SelectItem value="Car">Car</SelectItem>
                         <SelectItem value="Truck">Truck</SelectItem>
                         <SelectItem value="Motorcycle">Motorcycle</SelectItem>
                         <SelectItem value="Bus">Bus</SelectItem>

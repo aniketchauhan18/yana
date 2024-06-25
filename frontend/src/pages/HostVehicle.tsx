@@ -1,5 +1,7 @@
 function HostVehicle() {
-  return <div></div>;
+  return <div>
+    Vehicle added Successfully
+  </div>;
 }
 
 export default HostVehicle;

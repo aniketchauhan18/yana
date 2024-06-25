@@ -52,6 +52,12 @@ const VehicleSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    startDate: {
+      type: Date,
+    },
+    endDate: {  
+      type: Date,
+    },
     bookedBy: {
       type: Schema.Types.ObjectId,
       ref: "User",

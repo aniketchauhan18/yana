@@ -68,7 +68,7 @@ function Profile(): JSX.Element {
     <main className="font-inter flex items-center flex-col p-5">
       <div className="flex flex-col w-full  p-4 rounded">
         <div className="flex flex-col border-b w-full">
-          <div className="flex justify-between">
+          <div className="flex justify-between ">
             <div className="font-medium text">Settings</div>
             <button
               onClick={() => navigateTo(-1)}
@@ -173,7 +173,7 @@ function Profile(): JSX.Element {
             </div>
           </form>
         </div>
-      </div>
+        </div>
     </main>
   );
 }

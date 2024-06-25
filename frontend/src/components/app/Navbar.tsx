@@ -44,17 +44,26 @@ function Navbar() {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {showLogout ? (
-                  <DropdownMenuItem>
-                    <Link
-                      to="/"
-                      onClick={() => {
-                        setShowLogout(false);
-                        localStorage.removeItem("yana-token");
-                      }}
-                    >
-                      Logout
-                    </Link>
-                  </DropdownMenuItem>
+                  <div>
+                      <DropdownMenuItem>
+                        <Link
+                          to={`/profile/${localStorage.getItem('yana-user')}`}
+                        >
+                          Profile
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link
+                          to="/"
+                          onClick={() => {
+                            setShowLogout(false);
+                            localStorage.removeItem("yana-token");
+                          }}
+                        >
+                          Logout
+                        </Link>
+                      </DropdownMenuItem>
+                  </div>
                 ) : (
                   <div>
                     <DropdownMenuItem>
