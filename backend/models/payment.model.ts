@@ -9,7 +9,7 @@ const paymentSchema = new Schema({
   razorpaySignature: { type: String, required: true },
   amount: { type: Number, required: true },
   currency: { type: String, default: 'INR' },
-  status: { type: String, default: 'Pending' }
+  status: { enum:["Pending", "Success"], default: 'Pending' }
 }, {
   timestamps: true
 })
