@@ -1,8 +1,6 @@
-// import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { fetchUserData, fetchVehicle } from "@/fetchData";
-import VehicleCard from "@/components/app/VehicleCard";
 import VehicleImg from "../assets/hakon-sataoen-qyfco1nfMtg-unsplash.jpg"
 import { CiUser, CiMail } from "react-icons/ci";
 import { IoCallOutline } from "react-icons/io5";
@@ -10,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { handler } from "tailwindcss-animate";
+import { calculateDaysBetweenDates } from "@/utils/CalculateDays";
 
 interface RazorpayResponse {
   razorpay_payment_id: string;
@@ -22,7 +20,7 @@ interface RazorpayResponse {
 function Rent(): JSX.Element {
   const { id } = useParams<string>();
   const [startDate, setStartDate] = useState<string>("")
-  const [endDate, setEndDate] = useState<string>("")
+  const [endDate, setEndDate] = useState<string>("");
 
 
   const {
@@ -70,11 +68,11 @@ function Rent(): JSX.Element {
       });
       const { order } = await response.json();
       
-  
-      // Ensure the amount is correctly formatted as a number
+      const days = calculateDaysBetweenDates(startDate, endDate)
+
       const options = {
         key: key, // Enter the Key ID generated from the Dashboard
-        amount: Number(amount) * 100, // Amount should be in currency subunits (e.g., paise for INR)
+        amount: (Number(amount) * 100) * (days + 1), // Amount should be in currency subunits (e.g., paise for INR)
         currency: "INR",
         name: "Yana",
         description: "Test Transaction",
@@ -92,18 +90,27 @@ function Rent(): JSX.Element {
         theme: {
           color: "#3399cc"
         },
-        handler: function (response: RazorpayResponse) {
+        handler: async function (response: RazorpayResponse) {
           console.log("Payment Successful!");
           console.log("Payment ID: ", response.razorpay_payment_id);
           console.log("Order ID: ", response.razorpay_order_id);
           console.log("Signature: ", response.razorpay_signature);
+          const sendResponse = await fetch(`http://localhost:3001/vehicles/update/${vehicle?._id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("yana-token")}`,
+            },
+            body: JSON.stringify({ isAvailable: "No", startDate, endDate, bookedBy: localStorage.getItem("yana-user") }),
+          })
+          const sendResponseData = await sendResponse.json()
+          console.log(sendResponseData)
         }
       };
   
       const rzp1 = new window.Razorpay(options);
       rzp1.open();
 
-      // const sendResponse = fetch(`http://localhost:3001/vehicles/update/${vehicle?._id}`)
     } catch (err) {
       console.error("Error in checkout process:", err);
     }
@@ -121,6 +128,7 @@ function Rent(): JSX.Element {
               <h1 className="text-3xl font-bold">{vehicle?.make}</h1>
               <p className="text-xl text-zinc-500">{vehicle?.model} </p>
               <p className="text-xl text-zinc-500">${vehicle?.price} / day</p>
+              <p className="text-xl text-zinc-500">Availablity : {vehicle?.isAvailable}</p>
             </div>
             <div className="grid border p-3 w-full max-w-sm sm:max-w-xl rounded-md bg-zinc-100/40">
               <h1 className="text-xl font-bold mb-3">Owner Information</h1>

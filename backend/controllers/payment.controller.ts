@@ -29,6 +29,10 @@ export const paymentVerification = async(req: Request, res: Response) => {
   }) 
 }
 
+export const paymentVerification = async(req: Request, res: Response) => {
+  
+}
+
 export const getKey = async(req: Request, res: Response) => {
   return res.status(200).json({
     key: RAZORPAY_KEY_ID
