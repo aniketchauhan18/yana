@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserData, fetchVehicle } from "@/fetchData";
 import VehicleImg from "../assets/hakon-sataoen-qyfco1nfMtg-unsplash.jpg"
 import { CiUser, CiMail } from "react-icons/ci";
@@ -21,6 +21,7 @@ function Rent(): JSX.Element {
   const { id } = useParams<string>();
   const [startDate, setStartDate] = useState<string>("")
   const [endDate, setEndDate] = useState<string>("");
+  const navigateTo = useNavigate();
 
 
   const {
@@ -46,7 +47,6 @@ function Rent(): JSX.Element {
 
   if (isVehicleLoading || isOwnerLoading) return <div>Loading...</div>;
   if (vehicleError || ownerError) return <div>Error aa gya re bidu</div>;
-  console.log(vehicle)
 
   const checkout = async (amount: number | string) => {
     if (!startDate || !endDate) {
@@ -57,12 +57,8 @@ function Rent(): JSX.Element {
     const paymentAmount = Number(amount) * (days + 1)
     console.log(paymentAmount)
     try {
-
-      // Fetch the key from your server
       const keyResponse = await fetch("http://localhost:3001/payments/key");
       const { key } = await keyResponse.json();
-  
-      // Create an order and get the order ID from your server
       const response = await fetch("http://localhost:3001/payments/checkout", {
         method: "POST",
         headers: {
@@ -75,7 +71,7 @@ function Rent(): JSX.Element {
       console.log(days)
 
       const options = {
-        key: key, // Enter the Key ID generated from the Dashboard
+        key: key, 
         amount: paymentAmount, // Amount should be in currency subunits (e.g., paise for INR)
         currency: "INR",
         name: "Yana",
@@ -118,8 +114,10 @@ function Rent(): JSX.Element {
               razorpaySignature: razorpay_signature,
               status: "Success",
             })
-          })
+          });
+
           const paymentResponse = await storePaymentResponse.json()
+          const checkoutUrl = `/payment/checkout?paymentId=${razorpay_payment_id}&orderId=${razorpay_order_id}&signature=${razorpay_signature}&amount=${paymentAmount}`
           console.log(paymentResponse);
           const updateVehicle = await fetch(`http://localhost:3001/vehicles/update/${id}`, {
             method: "PUT",
@@ -131,10 +129,10 @@ function Rent(): JSX.Element {
           })
           const updateVehicleData = await updateVehicle.json()
           console.log(updateVehicleData);
-          
+          navigateTo(checkoutUrl)
         }
       };
-  
+      
       const rzp1 = new window.Razorpay(options);
       rzp1.open();
 
@@ -142,8 +140,7 @@ function Rent(): JSX.Element {
       console.error("Error in checkout process:", err);
     }
   };
-  
-  console.log(startDate, endDate)
+
 
   return (
     <main className="p-6 text-zinc-700  flex items-center w-full mb-24">
@@ -151,7 +148,7 @@ function Rent(): JSX.Element {
         <div className="flex justify-center items-center flex-col w-full">
           <div className="flex justify-center items-center w-full flex-col space-y-3">
             <img src={VehicleImg} className="max-w-xl rounded-xl w-full"/>
-            <div className="grid  p-3 w-full max-w-sm sm:max-w-xl rounded-md bg-zinc-100/40">
+            <div className="grid  p-3 w-full max-w-sm sm:max-w-xl rounded-md ">
               <h1 className="text-3xl font-bold">{vehicle?.make}</h1>
               <p className="text-xl text-zinc-500">{vehicle?.model} </p>
               <p className="text-xl text-zinc-500">${vehicle?.price} / day</p>

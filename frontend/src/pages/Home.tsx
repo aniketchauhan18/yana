@@ -28,7 +28,7 @@ export interface VehicleProps {
   ownerId: string;
 }
 function Home(): JSX.Element {
-  const [currentData, setCurrentData] = useState<VehicleProps[]>([]);
+  // const [currentData, setCurrentData] = useState<VehicleProps[]>([]);
   // const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [filteredVehicle, setFilteredVehicle] = useState<string>("");
 
@@ -60,7 +60,7 @@ function Home(): JSX.Element {
   //     if (sortBy === "price") {
   //       return a.price - b.price
   //     }
-  //   })
+  //   }) 
   // }, [sortBy, vehicles])
 
   // const sortedVehicles = useMemo(() => {
