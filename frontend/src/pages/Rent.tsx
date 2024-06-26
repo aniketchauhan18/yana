@@ -49,11 +49,15 @@ function Rent(): JSX.Element {
   console.log(vehicle)
 
   const checkout = async (amount: number | string) => {
+    if (!startDate || !endDate) {
+      alert("Please select the dates to rent the vehicle");
+      return
+    }
+    const days = calculateDaysBetweenDates(startDate, endDate)
+    const paymentAmount = Number(amount) * (days + 1)
+    console.log(paymentAmount)
     try {
-      if (!startDate || !endDate) {
-        alert("Please select the dates to rent the vehicle");
-        return
-      }
+
       // Fetch the key from your server
       const keyResponse = await fetch("http://localhost:3001/payments/key");
       const { key } = await keyResponse.json();
@@ -64,15 +68,15 @@ function Rent(): JSX.Element {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ amount }),
+        body: JSON.stringify({ amount:paymentAmount }),
       });
       const { order } = await response.json();
       
-      const days = calculateDaysBetweenDates(startDate, endDate)
+      console.log(days)
 
       const options = {
         key: key, // Enter the Key ID generated from the Dashboard
-        amount: (Number(amount) * 100) * (days + 1), // Amount should be in currency subunits (e.g., paise for INR)
+        amount: paymentAmount, // Amount should be in currency subunits (e.g., paise for INR)
         currency: "INR",
         name: "Yana",
         description: "Test Transaction",
@@ -91,11 +95,33 @@ function Rent(): JSX.Element {
           color: "#3399cc"
         },
         handler: async function (response: RazorpayResponse) {
+          if (!response.razorpay_payment_id || !response.razorpay_order_id || !response.razorpay_signature) {
+            console.error("Razorpay response is missing required properties.");
+            return;
+          }
           console.log("Payment Successful!");
           console.log("Payment ID: ", response.razorpay_payment_id);
           console.log("Order ID: ", response.razorpay_order_id);
           console.log("Signature: ", response.razorpay_signature);
-          const sendResponse = await fetch(`http://localhost:3001/vehicles/update/${vehicle?._id}`, {
+          const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
+          const storePaymentResponse = await fetch(`http://localhost:3001/payments/store/${id}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("yana-token")}`,
+            },
+            body: JSON.stringify({
+              userId : owner?._id,
+              amount: paymentAmount * 100,
+              razorpayPaymentId: razorpay_payment_id,
+              razorpayOrderId: razorpay_order_id,
+              razorpaySignature: razorpay_signature,
+              status: "Success",
+            })
+          })
+          const paymentResponse = await storePaymentResponse.json()
+          console.log(paymentResponse);
+          const updateVehicle = await fetch(`http://localhost:3001/vehicles/update/${id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -103,8 +129,9 @@ function Rent(): JSX.Element {
             },
             body: JSON.stringify({ isAvailable: "No", startDate, endDate, bookedBy: localStorage.getItem("yana-user") }),
           })
-          const sendResponseData = await sendResponse.json()
-          console.log(sendResponseData)
+          const updateVehicleData = await updateVehicle.json()
+          console.log(updateVehicleData);
+          
         }
       };
   
