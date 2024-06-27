@@ -45,24 +45,24 @@ function Navbar() {
                 <DropdownMenuSeparator />
                 {showLogout ? (
                   <div>
-                      <DropdownMenuItem>
-                        <Link
-                          to={`/profile/${localStorage.getItem('yana-user')}`}
-                        >
-                          Profile
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link
-                          to="/"
-                          onClick={() => {
-                            setShowLogout(false);
-                            localStorage.removeItem("yana-token");
-                          }}
-                        >
-                          Logout
-                        </Link>
-                      </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        to={`/profile/${localStorage.getItem("yana-user")}`}
+                      >
+                        Profile
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        to="/"
+                        onClick={() => {
+                          setShowLogout(false);
+                          localStorage.removeItem("yana-token");
+                        }}
+                      >
+                        Logout
+                      </Link>
+                    </DropdownMenuItem>
                   </div>
                 ) : (
                   <div>

@@ -10,6 +10,7 @@ import DashBoard from "./pages/DashBoard";
 import Vehicle from "./pages/Vehicle";
 import Rent from "./pages/Rent";
 import Checkout from "./pages/Checkout";
+import RentedVehicles from "./pages/RentedVehicles";
 
 function App() {
   return (
@@ -42,11 +43,19 @@ function App() {
               </MainComponent>
             }
           />
-          <Route 
+          <Route
             path="/payment/checkout"
             element={
               <MainComponent>
                 <Checkout />
+              </MainComponent>
+            }
+          />
+          <Route
+            path="/user/:id/rented-vehicles"
+            element={
+              <MainComponent>
+                <RentedVehicles />
               </MainComponent>
             }
           />

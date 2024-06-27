@@ -143,18 +143,21 @@ function Rent(): JSX.Element {
           );
           const updateVehicleData = await updateVehicle.json();
           console.log(updateVehicleData);
-          const addrentedVehicle = await fetch(`http://localhost:3001/users/add/rented-vehicles/${localStorage.getItem("yana-user")}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("yana-token")}`,
+          const addrentedVehicle = await fetch(
+            `http://localhost:3001/users/add/rented-vehicles/${localStorage.getItem("yana-user")}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("yana-token")}`,
+              },
+              body: JSON.stringify({
+                rentedVehicles: [vehicle?._id],
+              }),
             },
-            body: JSON.stringify({
-              rentedVehicles: [vehicle?._id]
-            })
-          })
+          );
           if (!addrentedVehicle.ok) {
-            alert("error while adding vehicle")
+            alert("error while adding vehicle");
           }
           navigateTo(checkoutUrl);
         },

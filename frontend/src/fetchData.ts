@@ -57,3 +57,19 @@ export async function fetchVehicle(vehicleId: string) {
     console.log("Error fetching vehicle");
   }
 }
+
+export async function fetchRentedVehicles(userId: string) {
+  try {
+    const response: Response = await fetch(
+      `http://localhost:3001/users/rented-vehicles/${userId}`,
+    );
+    if (!response.ok) {
+      console.log("Error fetching rented vehicles");
+    }
+    const data = await response.json();
+    return data.data;
+  } catch (err) {
+    console.log("Inside fetchData");
+    console.log(err);
+  }
+}

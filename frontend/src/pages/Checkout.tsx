@@ -1,5 +1,5 @@
 import { jsPDF } from "jspdf";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import "jspdf-autotable";
 
@@ -7,21 +7,21 @@ const generatePDF = (paymentId: string, orderId: string, amount: string) => {
   const doc = new jsPDF();
 
   const tableData = [
-    ['Payment ID', paymentId],
-    ['Order ID', orderId],
-    ['User ID', localStorage.getItem("yana-user")],
-    ['Amount', amount],
+    ["Payment ID", paymentId],
+    ["Order ID", orderId],
+    ["User ID", localStorage.getItem("yana-user")],
+    ["Amount", amount],
   ];
 
   doc.autoTable({
-    head: [['Key', 'Value']],
+    head: [["Fields", "Details"]],
     body: tableData,
     startY: 30,
     styles: {
-      font: 'helvetica',
+      font: "helvetica",
       fontSize: 12,
       cellPadding: 3,
-      overflow: 'linebreak',
+      overflow: "linebreak",
     },
     headStyles: {
       fillColor: [220, 220, 220],
@@ -29,29 +29,36 @@ const generatePDF = (paymentId: string, orderId: string, amount: string) => {
   });
 
   // Add a title
-  doc.setFontSize(14);
-  doc.text('Payment Details', 10, 10);
 
-  doc.save('payment-details.pdf');
+  doc.setFontSize(14);
+  doc.text("Payment Details", 10, 10);
+
+  doc.save("payment-details.pdf");
 };
 
 function Checkout() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
-  const paymentId = searchParams.get('paymentId');
-  const orderId = searchParams.get('orderId');
-  const amount = searchParams.get('amount');
+  const paymentId = searchParams.get("paymentId");
+  const orderId = searchParams.get("orderId");
+  const amount = searchParams.get("amount");
 
-  useEffect(() => {
-    if (paymentId && orderId && amount) {
-      generatePDF(paymentId, orderId, amount);
-    }
-  }, [paymentId, orderId, amount]);
+  // useEffect(() => {
+  //   if (paymentId && orderId && amount) {
+  //     generatePDF(paymentId, orderId, amount);
+  //   }
+  // }, [paymentId, orderId, amount]);
 
+  //route /user/:id/rented-vehicle
   return (
-    <div>
-      checkout-page
+    <div className="flex justify-center items-center h-[90dvh]">
+      <Link
+        to={`/user/${localStorage.getItem("yana-user")}/rented-vehicles`}
+        className="bg-orange-500 px-2 py-2 rounded text-white"
+      >
+        See rented vehicles
+      </Link>
     </div>
   );
 }

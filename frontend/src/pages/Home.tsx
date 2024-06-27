@@ -60,25 +60,25 @@ function Home(): JSX.Element {
   //     if (sortBy === "price") {
   //       return a.price - b.price
   //     }
-  //   }) 
+  //   })
   // }, [sortBy, vehicles])
 
   // const sortedVehicles = useMemo(() => {
-  //   return 
+  //   return
   // }, [vehicles])
 
   const filteredData = useMemo(() => {
     return vehicles?.filter((vehicle: VehicleProps) => {
-      return filteredVehicle ? vehicle.make.toLowerCase().includes(filteredVehicle.toLowerCase()) : true
-    })
-  }, [vehicles, filteredVehicle])
-
+      return filteredVehicle
+        ? vehicle.make.toLowerCase().includes(filteredVehicle.toLowerCase())
+        : true;
+    });
+  }, [vehicles, filteredVehicle]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
 
   console.log(1);
-
 
   const categoryClasses: string =
     "bg-gray-100 rounded-full px-4 py-1 hover:cursor-pointer";
@@ -188,7 +188,7 @@ function Home(): JSX.Element {
                 </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu> */}
-            <Input 
+            <Input
               placeholder="Search"
               className="max-w-36 sm:max-w-52"
               value={filteredVehicle}

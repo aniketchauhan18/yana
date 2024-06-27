@@ -173,7 +173,7 @@ function Profile(): JSX.Element {
             </div>
           </form>
         </div>
-        </div>
+      </div>
     </main>
   );
 }
