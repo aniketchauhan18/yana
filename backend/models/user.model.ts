@@ -35,6 +35,10 @@ const UserSchema = new Schema(
     dateOfBirth: {
       type: String,
     },
+    rentedVehicles: {
+      type: [Schema.Types.ObjectId],
+      ref: "Vehicle"
+    }
   },
   {
     timestamps: true,
