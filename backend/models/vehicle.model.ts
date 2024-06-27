@@ -55,7 +55,7 @@ const VehicleSchema = new Schema(
     startDate: {
       type: Date,
     },
-    endDate: {  
+    endDate: {
       type: Date,
     },
     bookedBy: {

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema(
+const userSchema = new Schema(
   {
     username: {
       type: String,
@@ -35,16 +35,21 @@ const UserSchema = new Schema(
     dateOfBirth: {
       type: String,
     },
-    rentedVehicles: {
-      type: [Schema.Types.ObjectId],
-      ref: "Vehicle"
-    }
+    rentedVehicles: [
+      {
+        vehicleId: { type: Schema.Types.ObjectId, ref: "Vehicle" },
+        startDate: { type: Date, required: true },
+        endDate: { type: Date, required: true },
+      },
+    ],
   },
   {
     timestamps: true,
   },
 );
 
-const User = mongoose.model("User", UserSchema);
+userSchema.index({ "rentedVehicles.endDate": 1 }, { expireAfterSeconds: 0 });
+
+const User = mongoose.model("User", userSchema);
 
 export default User;

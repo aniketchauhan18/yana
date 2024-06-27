@@ -1,5 +1,5 @@
-import { Request, Response } from "express"
-import Razorpay from 'razorpay';
+import { Request, Response } from "express";
+import Razorpay from "razorpay";
 import { RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET } from "../src/config";
 import Payment from "../models/payment.model";
 
@@ -14,25 +14,26 @@ export const checkout = async (req: Request, res: Response) => {
     currency: "INR",
   };
   const order = await instance.orders.create(options);
-  console.log(order)
+  console.log(order);
   return res.status(200).json({
     message: "Order created successfully",
-    order
+    order,
   });
 };
 
-export const paymentVerification = async(req: Request, res: Response) => {
-  console.log(req.body)
+export const paymentVerification = async (req: Request, res: Response) => {
+  console.log(req.body);
   return res.status(200).json({
-    message:"Payment Successfull",
-    data: req.body
-  }) 
-}
+    message: "Payment Successfull",
+    data: req.body,
+  });
+};
 
-export const storePaymentDetails = async(req: Request, res: Response) => {
-  const vehicleId = req.params.id
-  const { razorpayPaymentId, razorpayOrderId, razorpaySignature, amount } = req.body;
-  console.log(req.body)
+export const storePaymentDetails = async (req: Request, res: Response) => {
+  const vehicleId = req.params.id;
+  const { razorpayPaymentId, razorpayOrderId, razorpaySignature, amount } =
+    req.body;
+  console.log(req.body);
 
   const createPayment = await Payment.create({
     userId: req.body.userId,
@@ -42,16 +43,16 @@ export const storePaymentDetails = async(req: Request, res: Response) => {
     razorpaySignature,
     status: "Success",
     amount: amount,
-  })
-  console.log("storePayment", createPayment)
+  });
+  console.log("storePayment", createPayment);
   return res.status(200).json({
     message: "Payment stored successfully",
-    createPayment
-  })
-}
+    createPayment,
+  });
+};
 
-export const getKey = async(req: Request, res: Response) => {
+export const getKey = async (req: Request, res: Response) => {
   return res.status(200).json({
-    key: RAZORPAY_KEY_ID
-  })
-}
+    key: RAZORPAY_KEY_ID,
+  });
+};

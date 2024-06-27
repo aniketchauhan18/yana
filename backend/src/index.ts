@@ -4,7 +4,7 @@ import connectDB from "../db/dbConnection";
 import { PORT } from "./config";
 import userRouter from "../routes/v1/user.routes";
 import vehicleRouter from "../routes/v1/vehicle.routes";
-import paymentRouter from "../routes/v1/payment.routes"
+import paymentRouter from "../routes/v1/payment.routes";
 const app: Express = express();
 
 app.use(cors());

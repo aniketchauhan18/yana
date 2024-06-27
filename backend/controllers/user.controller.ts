@@ -88,3 +88,38 @@ export const updateUser = async (req: Request, res: Response) => {
     return InternalServerError(res);
   }
 };
+
+export const addRentedVehicles = async (req: Request, res: Response) => {
+  try {
+    const data = req.body.rentedVehicles;
+    console.log(data);
+    const user = await User.findById(req.params.id);
+    if (!user) return entityNotFound(res, "User");
+    user.rentedVehicles.push(...data);
+    await user.save();
+    return res.status(200).json({
+      message: "User updated successfully",
+      data: {
+        rentedVehicles: user.rentedVehicles,
+      },
+    });
+  } catch (err) {
+    console.log("error inside addRentedVehicles");
+    console.log(err);
+    return InternalServerError(res);
+  }
+};
+
+export const getRentedVehicles = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.params.id).populate("rentedVehicles"); // populating vehicle to eplace the vehicle IDs in the rentedVehicles array with the corresponding vehicle documents.
+    if (!user) return entityNotFound(res, "User");
+    return res.status(200).json({
+      data: user.rentedVehicles,
+    });
+  } catch (err) {
+    console.log(err);
+    console.log("error inside getRentedVehicles");
+    return InternalServerError(res);
+  }
+};
