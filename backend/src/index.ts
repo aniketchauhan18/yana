@@ -15,6 +15,8 @@ app.use("/users", userRouter);
 app.use("/vehicles", vehicleRouter);
 app.use("/payments", paymentRouter);
 
+console.log(PORT)
+
 app.listen(PORT || 3000, () =>
   console.log(`Server running on http://localhost:${PORT || 3000}`)
 );
