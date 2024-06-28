@@ -91,11 +91,12 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const addRentedVehicles = async (req: Request, res: Response) => {
   try {
-    const data = req.body.rentedVehicles;
-    console.log(data);
+    const { rentedVehicles } = req.body;
+    console.log(rentedVehicles);
     const user = await User.findById(req.params.id);
     if (!user) return entityNotFound(res, "User");
-    user.rentedVehicles.push(...data);
+    console.log(user.rentedVehicles);
+    user.rentedVehicles.push(rentedVehicles);
     await user.save();
     return res.status(200).json({
       message: "User updated successfully",
@@ -112,7 +113,12 @@ export const addRentedVehicles = async (req: Request, res: Response) => {
 
 export const getRentedVehicles = async (req: Request, res: Response) => {
   try {
-    const user = await User.findById(req.params.id).populate("rentedVehicles"); // populating vehicle to eplace the vehicle IDs in the rentedVehicles array with the corresponding vehicle documents.
+    const user = await User.findById(req.params.id).populate({
+      path: "rentedVehicles.vehicleId",
+      model: "Vehicle",
+    });
+    // populating vehicle to eplace the vehicle IDs in the rentedVehicles array with the corresponding vehicle documents.
+    console.log("rentedVehicles", user?.rentedVehicles);
     if (!user) return entityNotFound(res, "User");
     return res.status(200).json({
       data: user.rentedVehicles,

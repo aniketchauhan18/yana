@@ -4,6 +4,13 @@ import { useParams } from "react-router-dom";
 import { VehicleProps } from "./Home";
 import { Button } from "@/components/ui/button";
 
+interface RentedVehicleProps {
+  endDate: string;
+  startDate: string;
+  vehicleId: VehicleProps;
+  _id: string;
+}
+
 function RentedVehicles() {
   const { id } = useParams<string>();
   const {
@@ -19,6 +26,7 @@ function RentedVehicles() {
 
   if (isLoading) return <div>Load kr rha hu biduu</div>;
   if (error) return <div>Error aa gya re biduu</div>;
+  console.log(rentedVehicles);
 
   return (
     <main className="p-6 text-zinc-700">
@@ -27,16 +35,16 @@ function RentedVehicles() {
       </div>
       <div className="border-b mb-3" />
       <div className="grid lg:grid-cols-2 gap-3">
-        {rentedVehicles.map((vehicle: VehicleProps) => {
+        {rentedVehicles.map((vehicle: RentedVehicleProps) => {
           return (
             <div
-              key={vehicle._id}
+              key={vehicle.vehicleId._id}
               className="p-3 flex flex-col border rounded bg-zinc-50"
             >
               <p className="text-lg">
-                {vehicle.make} ({vehicle.model})
+                {vehicle.vehicleId.make} ({vehicle.vehicleId.model})
               </p>
-              <p className="text-base font-normal">{vehicle.year}</p>
+              <p className="text-base font-normal">{vehicle.vehicleId.year}</p>
               <p className="">Time remaining: 2 days</p>
               <div className="flex justify-end">
                 <Button className="max-w-sm bg-orange-600 hover:bg-orange-500 text-sm px-2 py-0.5">

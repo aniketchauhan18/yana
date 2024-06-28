@@ -37,7 +37,11 @@ const userSchema = new Schema(
     },
     rentedVehicles: [
       {
-        vehicleId: { type: Schema.Types.ObjectId, ref: "Vehicle" },
+        vehicleId: {
+          type: Schema.Types.ObjectId,
+          ref: "Vehicle",
+          required: true,
+        },
         startDate: { type: Date, required: true },
         endDate: { type: Date, required: true },
       },
@@ -48,7 +52,7 @@ const userSchema = new Schema(
   },
 );
 
-userSchema.index({ "rentedVehicles.endDate": 1 }, { expireAfterSeconds: 0 });
+// userSchema.index({ "rentedVehicles.endDate": 1 }, { expireAfterSeconds: 0 });
 
 const User = mongoose.model("User", userSchema);
 

@@ -44,11 +44,11 @@ function Checkout() {
   const orderId = searchParams.get("orderId");
   const amount = searchParams.get("amount");
 
-  // useEffect(() => {
-  //   if (paymentId && orderId && amount) {
-  //     generatePDF(paymentId, orderId, amount);
-  //   }
-  // }, [paymentId, orderId, amount]);
+  useEffect(() => {
+    if (paymentId && orderId && amount) {
+      generatePDF(paymentId, orderId, amount);
+    }
+  }, []);
 
   //route /user/:id/rented-vehicle
   return (

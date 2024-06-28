@@ -152,7 +152,11 @@ function Rent(): JSX.Element {
                 Authorization: `Bearer ${localStorage.getItem("yana-token")}`,
               },
               body: JSON.stringify({
-                rentedVehicles: [vehicle?._id],
+                rentedVehicles: {
+                  vehicleId: vehicle._id,
+                  startDate: new Date(startDate),
+                  endDate: new Date(endDate),
+                },
               }),
             },
           );
