@@ -3,14 +3,16 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import "jspdf-autotable";
 
-const generatePDF = (paymentId: string, orderId: string, amount: string) => {
+const generatePDF = (paymentId: string, orderId: string, amount: string, make: string, model:string, user: string) => {
   const doc = new jsPDF();
 
   const tableData = [
     ["Payment ID", paymentId],
     ["Order ID", orderId],
-    ["User ID", localStorage.getItem("yana-user")],
-    ["Amount", amount],
+    ["Paid by", user],
+    ["Amount Paid", amount],
+    ["Manufacturer", make],
+    ["Model", model]
   ];
 
   doc.autoTable({
@@ -43,10 +45,13 @@ function Checkout() {
   const paymentId = searchParams.get("paymentId");
   const orderId = searchParams.get("orderId");
   const amount = searchParams.get("amount");
+  const make = searchParams.get("make")
+  const model = searchParams.get("model")
+  const user = searchParams.get("user")
 
   useEffect(() => {
     if (paymentId && orderId && amount) {
-      generatePDF(paymentId, orderId, amount);
+      generatePDF(paymentId, orderId, amount, make as string, model as string, user as string);
     }
   }, []);
 

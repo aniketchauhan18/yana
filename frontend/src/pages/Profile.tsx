@@ -53,7 +53,7 @@ function Profile(): JSX.Element {
       address: formData.get("address") as string,
     };
     const response = await fetch(`http://localhost:3001/users/update/${id}`, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("yana-token")}`,
@@ -61,14 +61,13 @@ function Profile(): JSX.Element {
       body: JSON.stringify(formObj),
     });
     if (response.ok) alert("Profile Updated Successfully");
-    console.log(response);
   };
 
   return (
     <main className="font-inter flex items-center flex-col p-5">
-      <div className="flex flex-col w-full  p-4 rounded">
+      <div className="flex flex-col w-full p-4 rounded ">
         <div className="flex flex-col border-b w-full">
-          <div className="flex justify-between ">
+          <div className="flex justify-between">
             <div className="font-medium text">Settings</div>
             <button
               onClick={() => navigateTo(-1)}
@@ -167,7 +166,7 @@ function Profile(): JSX.Element {
               </div>
             </div>
             <div className="w-full flex justify-center mt-5">
-              <Button className=" w-full sm:w-96" type="submit">
+              <Button className="w-full sm:w-96 bg-orange-600 hover:bg-orange-500 transition duration-300" type="submit">
                 Update
               </Button>
             </div>

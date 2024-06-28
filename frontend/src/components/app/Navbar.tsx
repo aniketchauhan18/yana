@@ -32,7 +32,7 @@ function Navbar() {
     <nav className="flex w-full sm:justify-center max-w-full border-b">
       <header className="font-inter flex sm:justify-center gap-3 sm:px-2 py-2 px-2 w-full ">
         <div className="hidden sm:flex justify-between px-5 py-2 w-full">
-          <div className="font-poppins text-xl font-semibold text-zinc-500">
+          <div className="font-poppins text-xl font-semibold text-zinc-700">
             <Link to="/">Yana</Link>
           </div>
           <div>

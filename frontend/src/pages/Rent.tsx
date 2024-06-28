@@ -76,7 +76,6 @@ function Rent(): JSX.Element {
         description: "Test Transaction",
         image: "https://example.com/your_logo",
         order_id: order.id, // Use the order ID obtained from the response
-        callback_url: "http://localhost:5173/payments/verification",
         prefill: {
           name: owner.username,
           email: owner.email,
@@ -123,7 +122,7 @@ function Rent(): JSX.Element {
           );
 
           const paymentResponse = await storePaymentResponse.json();
-          const checkoutUrl = `/payment/checkout?paymentId=${razorpay_payment_id}&orderId=${razorpay_order_id}&signature=${razorpay_signature}&amount=${paymentAmount}`;
+          const checkoutUrl = `/payment/checkout?paymentId=${razorpay_payment_id}&orderId=${razorpay_order_id}&signature=${razorpay_signature}&amount=${paymentAmount}&make=${vehicle?.make}&model=${vehicle?.model}&user=${owner.username}`;
           console.log(paymentResponse);
           const updateVehicle = await fetch(
             `http://localhost:3001/vehicles/update/${id}`,

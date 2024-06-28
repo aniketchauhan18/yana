@@ -3,15 +3,15 @@ import { useQuery } from "@tanstack/react-query";
 import VehicleCard from "@/components/app/VehicleCard";
 import { fetchVehicles } from "@/fetchData";
 import { Link } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-} from "@/components/ui/dropdown-menu";
+// import {
+//   DropdownMenu,
+//   DropdownMenuTrigger,
+//   DropdownMenuContent,
+//   DropdownMenuRadioGroup,
+//   DropdownMenuRadioItem,
+// } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 
 export interface VehicleProps {
   ImageUrls?: string[];
@@ -76,9 +76,7 @@ function Home(): JSX.Element {
   }, [vehicles, filteredVehicle]);
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error</div>;
-
-  console.log(1);
+  if (error) return <div>Error</div>; q
 
   const categoryClasses: string =
     "bg-gray-100 rounded-full px-4 py-1 hover:cursor-pointer";

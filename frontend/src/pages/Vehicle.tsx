@@ -81,7 +81,7 @@ function Vehicle(): JSX.Element {
         </button>
       </div>
       <div className="flex text-zinc-700   flex-col p-3">
-        <div className="">
+        <div className="text-xl font-bold">
           <p>Your Vehicle</p>
         </div>
         <div className="border-b"></div>
@@ -167,7 +167,7 @@ function Vehicle(): JSX.Element {
                 </Select>
               </div>
               <div className="flex justify-center">
-                <Button type="submit" className=" w-full max-w-3xl">
+                <Button type="submit" className=" w-full max-w-3xl bg-orange-600 hover:bg-orange-500">
                   Update
                 </Button>
               </div>
