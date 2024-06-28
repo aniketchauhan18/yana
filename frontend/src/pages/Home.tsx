@@ -76,7 +76,7 @@ function Home(): JSX.Element {
   }, [vehicles, filteredVehicle]);
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error</div>; q
+  if (error) return <div>Error</div>; 
 
   const categoryClasses: string =
     "bg-gray-100 rounded-full px-4 py-1 hover:cursor-pointer";

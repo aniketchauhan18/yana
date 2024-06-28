@@ -23,24 +23,24 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userLoginSchema = exports.userUpdateValidation = exports.userRegisterationValidation = void 0;
+exports.vehicleSchema = void 0;
 const z = __importStar(require("zod"));
-exports.userRegisterationValidation = z.object({
-    username: z.string(),
-    email: z.string().email(),
-    password: z.string(),
-});
-exports.userUpdateValidation = z.object({
-    username: z.string(),
-    email: z.string().email(),
-    number: z.number().optional(),
-    country: z.string().optional(),
-    state: z.string().optional(),
-    pincode: z.number().optional(),
-    address: z.string().optional(),
-    dateOfBirth: z.string().optional(),
-});
-exports.userLoginSchema = z.object({
-    email: z.string().email(),
-    password: z.string(),
+exports.vehicleSchema = z.object({
+    make: z.string(),
+    model: z.string(),
+    year: z.string(),
+    price: z.number().int().positive(),
+    category: z.enum([
+        "Car",
+        "Truck",
+        "Motorcycle",
+        "Bus",
+        "Van",
+        "Suv",
+        "Bike",
+        "Bicycle",
+        "Other",
+    ]),
+    isAvailable: z.enum(["Yes", "No"]),
+    ownerId: z.string(),
 });
