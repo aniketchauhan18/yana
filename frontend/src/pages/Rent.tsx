@@ -16,6 +16,38 @@ interface RazorpayResponse {
   razorpay_signature: string;
 }
 
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  image: string;
+  order_id: string;
+  prefill: {
+    name: string;
+    email: string;
+    contact: string;
+  };
+  notes: {
+    address: string;
+  };
+  theme: {
+    color: string;
+  };
+  handler: (response: RazorpayResponse) => Promise<void>;
+}
+
+interface RazorpayInstance {
+  open(): void;
+}
+
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
+
 function Rent(): JSX.Element {
   const { id } = useParams<string>();
   const [startDate, setStartDate] = useState<string>("");
@@ -43,6 +75,8 @@ function Rent(): JSX.Element {
     enabled: !!vehicle?.ownerId,
   });
 
+  console.log(owner)
+
   if (isVehicleLoading || isOwnerLoading) return <div>Loading...</div>;
   if (vehicleError || ownerError) return <div>Error aa gya re bidu</div>;
 
@@ -68,7 +102,7 @@ function Rent(): JSX.Element {
 
       console.log(days);
 
-      const options = {
+      const options: RazorpayOptions = {
         key: key,
         amount: paymentAmount, // Amount should be in currency subunits (e.g., paise for INR)
         currency: "INR",
@@ -166,7 +200,7 @@ function Rent(): JSX.Element {
         },
       };
 
-      const rzp1 = new window.Razorpay(options);
+      const rzp1: RazorpayInstance = new window.Razorpay(options) ;
       rzp1.open();
     } catch (err) {
       console.error("Error in checkout process:", err);

@@ -2,6 +2,13 @@ import { jsPDF } from "jspdf";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import "jspdf-autotable";
+import { UserOptions } from "jspdf-autotable";
+
+declare module "jspdf" {
+  interface jsPDF {
+    autoTable: (options: UserOptions) => jsPDF;
+  }
+}
 
 const generatePDF = (paymentId: string, orderId: string, amount: string, make: string, model:string, user: string) => {
   const doc = new jsPDF();

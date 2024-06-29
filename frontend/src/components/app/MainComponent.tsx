@@ -1,6 +1,11 @@
+import * as React from "react";
 import Navbar from "./Navbar";
 
-function MainComponent({ children }): JSX.Element {
+interface MainComponentProps{
+  children: React.ReactNode;
+}
+
+function MainComponent({ children }: MainComponentProps): JSX.Element {
   return (
     <div className="flex flex-col">
       <Navbar />
