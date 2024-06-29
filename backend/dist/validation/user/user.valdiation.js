@@ -44,3 +44,4 @@ exports.userLoginSchema = z.object({
     email: z.string().email(),
     password: z.string(),
 });
+//# sourceMappingURL=user.valdiation.js.map

@@ -44,3 +44,4 @@ exports.vehicleSchema = z.object({
     isAvailable: z.enum(["Yes", "No"]),
     ownerId: z.string(),
 });
+//# sourceMappingURL=vehicle.validation.js.map

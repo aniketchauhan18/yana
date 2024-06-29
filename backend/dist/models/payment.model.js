@@ -27,3 +27,4 @@ const paymentSchema = new Schema({
 });
 const Payment = mongoose_1.default.model("Payment", paymentSchema);
 exports.default = Payment;
+//# sourceMappingURL=payment.model.js.map

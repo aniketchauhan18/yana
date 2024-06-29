@@ -30,5 +30,5 @@ exports.PORT = parseInt(process.env.PORT || '3000', 10);
 exports.MONGODB_URI = process.env.MONGODB_URI;
 exports.SECRET_KEY = process.env.SECRET_KEY;
 exports.RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID;
-exports.RAZORPAY_KEY_SECRET = process.env
-    .RAZORPAY_KEY_SECRET;
+exports.RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
+//# sourceMappingURL=config.js.map

@@ -1,8 +1,11 @@
+export const BASE_URL = "https://yana-p1ew.onrender.com/api/v1";
+// http://localhost:3001/api/v1 
+
 export async function fetchUserData(userId: string) {
   try {
     if (typeof userId === "string") {
       const response = await fetch(
-        `http://localhost:3001/users/profile/${userId}`,
+        `${BASE_URL}/users/profile/${userId}`,
       );
       if (response.ok) {
         const data = await response.json();
@@ -17,7 +20,7 @@ export async function fetchUserData(userId: string) {
 
 export async function fetchVehicles() {
   try {
-    const response: Response = await fetch(`http://localhost:3001/vehicles`);
+    const response: Response = await fetch(`${BASE_URL}/vehicles`);
     if (response.ok) {
       const data = await response.json();
       return data.data;
@@ -31,7 +34,7 @@ export async function fetchVehicles() {
 export async function fetchUserVehicleData(userId: string) {
   try {
     const response: Response = await fetch(
-      `http://localhost:3001/vehicles/user/${userId}`,
+      `${BASE_URL}/vehicles/user/${userId}`,
     );
     if (response.ok) {
       console.log("fetched user vehicle data");

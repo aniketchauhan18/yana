@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchUserData, fetchVehicle } from "@/fetchData";
+import { BASE_URL, fetchUserData, fetchVehicle } from "@/fetchData";
 import VehicleImg from "../assets/hakon-sataoen-qyfco1nfMtg-unsplash.jpg";
 import { CiUser, CiMail } from "react-icons/ci";
 import { IoCallOutline } from "react-icons/io5";
@@ -89,9 +89,9 @@ function Rent(): JSX.Element {
     const paymentAmount = Number(amount) * (days + 1);
     console.log(paymentAmount);
     try {
-      const keyResponse = await fetch("http://localhost:3001/payments/key");
+      const keyResponse = await fetch(`${BASE_URL}/payments/key`);
       const { key } = await keyResponse.json();
-      const response = await fetch("http://localhost:3001/payments/checkout", {
+      const response = await fetch(`${BASE_URL}/payments/checkout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -137,7 +137,7 @@ function Rent(): JSX.Element {
           const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
             response;
           const storePaymentResponse = await fetch(
-            `http://localhost:3001/payments/store/${id}`,
+            `${BASE_URL}/payments/store/${id}`,
             {
               method: "POST",
               headers: {
@@ -159,7 +159,7 @@ function Rent(): JSX.Element {
           const checkoutUrl = `/payment/checkout?paymentId=${razorpay_payment_id}&orderId=${razorpay_order_id}&signature=${razorpay_signature}&amount=${paymentAmount}&make=${vehicle?.make}&model=${vehicle?.model}&user=${owner.username}`;
           console.log(paymentResponse);
           const updateVehicle = await fetch(
-            `http://localhost:3001/vehicles/update/${id}`,
+            `${BASE_URL}/vehicles/update/${id}`,
             {
               method: "PUT",
               headers: {
@@ -177,7 +177,7 @@ function Rent(): JSX.Element {
           const updateVehicleData = await updateVehicle.json();
           console.log(updateVehicleData);
           const addrentedVehicle = await fetch(
-            `http://localhost:3001/users/add/rented-vehicles/${localStorage.getItem("yana-user")}`,
+            `${BASE_URL}/users/add/rented-vehicles/${localStorage.getItem("yana-user")}`,
             {
               method: "PUT",
               headers: {

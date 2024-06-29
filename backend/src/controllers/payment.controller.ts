@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Razorpay from "razorpay";
-import { RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET } from "../src/config";
+import { RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET } from "../config";
 import Payment from "../models/payment.model";
 
 const instance = new Razorpay({

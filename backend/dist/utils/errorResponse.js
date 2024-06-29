@@ -62,3 +62,4 @@ const sendEntityResponse = (res, data) => {
     return sendResponse(res, 200, data);
 };
 exports.sendEntityResponse = sendEntityResponse;
+//# sourceMappingURL=errorResponse.js.map

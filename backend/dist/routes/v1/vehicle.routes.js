@@ -15,3 +15,4 @@ router.route("/registerMany/:userId").post(auth_middleware_1.authenticateJwt, ve
 router.route("/update/:id").put(auth_middleware_1.authenticateJwt, vehicle_controller_1.updateVehicle);
 router.route("/delete/:id").delete(auth_middleware_1.authenticateJwt, vehicle_controller_1.deleteVehicle);
 exports.default = router;
+//# sourceMappingURL=vehicle.routes.js.map

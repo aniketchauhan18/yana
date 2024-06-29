@@ -11,3 +11,4 @@ router.route("/verification").post(payment_controller_1.paymentVerification),
     router.route("/store/:id").post(payment_controller_1.storePaymentDetails);
 router.route("/key").get(payment_controller_1.getKey);
 exports.default = router;
+//# sourceMappingURL=payment.routes.js.map

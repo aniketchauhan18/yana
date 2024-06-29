@@ -55,3 +55,4 @@ const userSchema = new Schema({
 // userSchema.index({ "rentedVehicles.endDate": 1 }, { expireAfterSeconds: 0 });
 const User = mongoose_1.default.model("User", userSchema);
 exports.default = User;
+//# sourceMappingURL=user.model.js.map

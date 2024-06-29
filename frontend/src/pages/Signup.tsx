@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { BASE_URL } from "@/fetchData";
 
 const formSchema = z.object({
   username: z.string().min(1, "Must be valid username"),
@@ -41,7 +42,7 @@ function Signup(): JSX.Element {
 
     const validatedData: FormSchema = result.data;
     try {
-      const response = await fetch("http://localhost:3001/users/register", {
+      const response = await fetch(`${BASE_URL}/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

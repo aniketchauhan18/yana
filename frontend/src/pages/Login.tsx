@@ -2,6 +2,7 @@ import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { z } from "zod";
 import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "@/fetchData";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 
 function Login(): JSX.Element {
@@ -35,7 +36,7 @@ function Login(): JSX.Element {
 
     const validatedData: FormSchema = data;
     try {
-      const response = await fetch("http://localhost:3001/users/login", {
+      const response = await fetch(`${BASE_URL}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

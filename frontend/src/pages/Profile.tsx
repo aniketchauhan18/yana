@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchUserData } from "@/fetchData";
+import { BASE_URL, fetchUserData } from "@/fetchData";
 
 function Profile(): JSX.Element {
   // const inputClasses: string = "w-3/4"
@@ -52,7 +52,7 @@ function Profile(): JSX.Element {
       pincode: Number(formData.get("pincode")),
       address: formData.get("address") as string,
     };
-    const response = await fetch(`http://localhost:3001/users/update/${id}`, {
+    const response = await fetch(`${BASE_URL}/users/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

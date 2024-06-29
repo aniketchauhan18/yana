@@ -134,3 +134,4 @@ const addMultipleVehicle = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.addMultipleVehicle = addMultipleVehicle;
+//# sourceMappingURL=vehicle.controller.js.map

@@ -1,4 +1,4 @@
-import { fetchVehicle } from "@/fetchData";
+import { BASE_URL, fetchVehicle } from "@/fetchData";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -49,7 +49,7 @@ function Vehicle(): JSX.Element {
     console.log(formObj);
     try {
       const response = await fetch(
-        `http://localhost:3001/vehicles/update/${id}`,
+        `${BASE_URL}/vehicles/update/${id}`,
         {
           method: "PUT",
           headers: {

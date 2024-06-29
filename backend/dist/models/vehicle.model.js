@@ -70,3 +70,4 @@ const VehicleSchema = new Schema({
 });
 const Vehicle = mongoose_1.default.model("Vehicle", VehicleSchema);
 exports.default = Vehicle;
+//# sourceMappingURL=vehicle.model.js.map

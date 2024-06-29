@@ -142,3 +142,4 @@ const getRentedVehicles = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.getRentedVehicles = getRentedVehicles;
+//# sourceMappingURL=user.controller.js.map

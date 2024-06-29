@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { SECRET_KEY } from "../src/config";
+import { SECRET_KEY } from "../config";
 
 type TokenType = string | undefined;
 

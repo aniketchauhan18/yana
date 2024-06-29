@@ -15,3 +15,4 @@ router.route("/update/:id").put(auth_middleware_1.authenticateJwt, user_controll
 router.route("/add/rented-vehicles/:id").put(user_controller_1.addRentedVehicles); // add logic in controller for vehicle duplication
 router.route("/rented-vehicles/:id").get(user_controller_1.getRentedVehicles);
 exports.default = router;
+//# sourceMappingURL=user.routes.js.map

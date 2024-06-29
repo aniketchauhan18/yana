@@ -14,6 +14,7 @@ import {
 import { z } from "zod";
 import * as React from "react";
 import ImgUpload from "./ImgUpload";
+import { BASE_URL } from "@/fetchData";
 
 function Host(): JSX.Element {
   const [showModal, setShowModal] = React.useState<boolean>(false);
@@ -50,7 +51,7 @@ function Host(): JSX.Element {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/vehicles/register/${userId}`,
+        `${BASE_URL}/vehicles/register/${userId}`,
         {
           method: "POST",
           headers: {
