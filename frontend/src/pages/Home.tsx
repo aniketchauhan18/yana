@@ -28,8 +28,8 @@ export interface VehicleProps {
   ownerId: string;
 }
 function Home(): JSX.Element {
-  // const [currentData, setCurrentData] = useState<VehicleProps[]>([]);
-  // const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [currentData, setCurrentData] = useState<VehicleProps[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [filteredVehicle, setFilteredVehicle] = useState<string>("");
 
   const {
@@ -42,38 +42,30 @@ function Home(): JSX.Element {
     staleTime: Infinity,
   });
 
-  // useEffect(() => {
-  //   if (vehicles) {
-  //     if (selectedCategory) {
-  //       const filteredData = vehicles.filter(
-  //         (vehicle: VehicleProps) => vehicle.category === selectedCategory,
-  //       );
-  //       setCurrentData(filteredData);
-  //     } else {
-  //       setCurrentData(vehicles);
-  //     }
-  //   }
-  // }, [vehicles, selectedCategory]);
+  useEffect(() => {
+    if (vehicles) {
+      if (selectedCategory) {
+        const filteredData = vehicles.filter(
+          (vehicle: VehicleProps) => vehicle.category === selectedCategory,
+        );
+        setCurrentData(filteredData);
+      } else {
+        setCurrentData(vehicles);
+      }
+    }
+  }, [vehicles, selectedCategory]);
 
-  // const sortedVehicles = useMemo(() => {
-  //   return vehicles.sort((a: VehicleProps, b: VehicleProps) => {
-  //     if (sortBy === "price") {
-  //       return a.price - b.price
-  //     }
-  //   })
-  // }, [sortBy, vehicles])
-
-  // const sortedVehicles = useMemo(() => {
-  //   return
-  // }, [vehicles])
+  const handleCategory = (category: string) => {
+    setSelectedCategory(category);
+  };
 
   const filteredData = useMemo(() => {
-    return vehicles?.filter((vehicle: VehicleProps) => {
+    return currentData?.filter((vehicle: VehicleProps) => {
       return filteredVehicle
         ? vehicle.make.toLowerCase().includes(filteredVehicle.toLowerCase())
         : true;
     });
-  }, [vehicles, filteredVehicle]);
+  }, [filteredVehicle, currentData]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>; 
@@ -195,15 +187,17 @@ function Home(): JSX.Element {
           </div>
         </div>
       </div>
-      <div className=" grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 w-full mt-10 rounded-t-lg h-auto">
-        {filteredData.map((vehicle: VehicleProps) => {
-          return (
-            <Link to={`/rent/vehicle/${vehicle._id}`} key={vehicle._id}>
-              <VehicleCard vehicle={vehicle} />
-            </Link>
-          );
-        })}
-      </div>
+        {filteredData.length === 0 ? <div className="flex justify-center  items-center h-[40dvh]">Selected Vehicle is not available</div> :
+        <div className=" grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 w-full mt-10 rounded-t-lg h-auto">
+          {filteredData.map((vehicle: VehicleProps) => {
+            return (
+              <Link to={`/rent/vehicle/${vehicle._id}`} key={vehicle._id}>
+                <VehicleCard vehicle={vehicle} />
+              </Link>
+            );
+          })} 
+        </div>}
+      
     </main>
   );
 }
