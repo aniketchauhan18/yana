@@ -49,7 +49,7 @@ export async function fetchUserVehicleData(userId: string) {
 export async function fetchVehicle(vehicleId: string) {
   try {
     const response: Response = await fetch(
-      `http://localhost:3001/vehicles/${vehicleId}`,
+      `${BASE_URL}/vehicles/${vehicleId}`,
     );
     if (response.ok) {
       const data = await response.json();
@@ -64,7 +64,7 @@ export async function fetchVehicle(vehicleId: string) {
 export async function fetchRentedVehicles(userId: string) {
   try {
     const response: Response = await fetch(
-      `http://localhost:3001/users/rented-vehicles/${userId}`,
+      `${BASE_URL}/rented-vehicles/${userId}`,
     );
     if (!response.ok) {
       console.log("Error fetching rented vehicles");
