@@ -104,17 +104,28 @@ function Navbar() {
               </Link>
             </div>
             {showLogout ? (
-              <div className={linkDivClasses}>
+              <div className="flex flex-col gap-8">
+                <div className={linkDivClasses}>
+                  <Link
+                    to="/"
+                    onClick={() => {
+                      localStorage.removeItem("yana-token");
+                      setShowLogout(false);
+                      setShowDiv(false);
+                    }}
+                  >
+                    Logout
+                  </Link>
+                </div>
+                <div className={linkDivClasses}>
                 <Link
-                  to="/"
-                  onClick={() => {
-                    localStorage.removeItem("yana-token");
-                    setShowLogout(false);
-                    setShowDiv(false);
-                  }}
-                >
-                  Logout
-                </Link>
+                        to={`/profile/${localStorage.getItem("yana-user")}`}
+                        className={linkDivClasses}
+                        onClick={() => setShowDiv(false)}
+                      >
+                        Profile
+                      </Link>
+                </div>
               </div>
             ) : (
               <div className={`flex-col space-y-7`}>

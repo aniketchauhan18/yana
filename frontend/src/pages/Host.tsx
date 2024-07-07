@@ -95,15 +95,15 @@ function Host(): JSX.Element {
             </p>
             <div className="hidden lg:flex lg:flex-col mt-6">
               <p className="text-xl mb-3 bg-orange-400 px-1 text-white">
-                Benefits of Renting Out Your Vehicle
+                 Benefits of Renting Out Your Vehicle
               </p>
-              <ul className="text-zinc-400 space-y-3">
-                <li>Earn extra income effortlessly.</li>
-                <li>Flexible rental periods to suit your schedule.</li>
+              <ul className="text-zinc-500 space-y-3">
+                <li>&bull; Earn extra income effortlessly.</li>
+                <li>&bull; Flexible rental periods to suit your schedule.</li>
                 <li>
-                  Comprehensive insurance coverage for your peace of mind.
+                &bull; Comprehensive insurance coverage for your peace of mind.
                 </li>
-                <li>Join a trusted community of vehicle owners and renters.</li>
+                <li>&bull; Join a trusted community of vehicle owners and renters.</li>
               </ul>
             </div>
           </div>
@@ -173,7 +173,7 @@ function Host(): JSX.Element {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button type="submit">Submit</Button>
+                <Button type="submit" className="bg-gradient-to-b from-orange-500 to-orange-600 hover:from-orange-500 hover:to-orange-600 transition duration-300">Submit</Button>
               </div>
             </form>
           </div>

@@ -237,10 +237,10 @@ function Rent(): JSX.Element {
                   <IoCallOutline className=" text-xl " />
                   {owner.number}
                 </div>
-                <div className="flex items-center gap-2 text-zinc-600">
+                <a href={`mailto:${owner.email}`} className="flex items-center gap-2 text-zinc-600">
                   <CiMail className=" text-xl " />
                   {owner.email}
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -282,7 +282,7 @@ function Rent(): JSX.Element {
                 Review the details of your upcoming rental.
               </h2>
             </div>
-            <Button onClick={() => checkout(vehicle?.price)}>Book Now</Button>
+            <Button onClick={() => checkout(vehicle?.price)} className="bg-gradient-to-b from-orange-500 to-orange-600 hover:from-orange-500 hover:to-orange-600 transition duration-300">Book Now</Button>
           </div>
         </div>
       </div>
