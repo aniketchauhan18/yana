@@ -8,6 +8,7 @@ import {
 } from "../utils/errorResponse";
 import Vehicle from "../models/vehicle.model";
 import { VehicleSchemaType } from "../validation/vehicle/vehicle.validation";
+import User from "../models/user.model";
 
 export const registerVehicle = async (req: Request, res: Response) => {
   // const userId: string = req.params.userId
@@ -118,3 +119,45 @@ export const addMultipleVehicle = async (req: Request, res: Response) => {
     return InternalServerError(res);
   }
 };
+
+// export const checkandRemoveExpiredRentals = async () => {
+//   const currentDate = new Date();
+//   const rentedVehicles = await Vehicle.find({
+//     isAvailable: "No"
+//   });
+
+//   for (const rentedVehicle of rentedVehicles) {
+//     if (!rentedVehicle.endDate) continue;
+//     if (rentedVehicle.endDate < currentDate ) {
+//       const user = await User.findById(rentedVehicle.ownerId);
+//       console.log(user);
+//       await rentedVehicle.updateOne({
+//         $set: {
+//           isAvailable: "Yes",
+//           bookedBy: undefined,
+//         },
+//       });
+//     }
+//     // const user = await User.findById(req.params.id).populate({
+//     //   path: "rentedVehicles",
+//     //   model: "Vehicle",
+//     // });
+
+//     // let user = await User.findById(rentedVehicle?.ownerId);
+//     // if (user) {
+//     //   const newUser = user.rentedVehicles.filter(
+//     //     (veh) => {
+//     //       veh.vehicleId.toString() !== rentedVehicle._id.toString()
+//     //     }
+//     //   );
+//     //   console.log(newUser)
+//       // console.log(user)
+//       console.log("---------------------------------------------------")
+//       // await user.save();
+//     }
+//     // const users = await Vehicle.find({}).populate('ownerId');
+//     return registerVehicle;
+//   }
+
+
+// checkandRemoveExpiredRentals()

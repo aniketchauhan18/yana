@@ -1,5 +1,5 @@
-export const  BASE_URL = "https://yana-p1ew.onrender.com/api/v1";
-// http://localhost:3001/api/v1 
+export const  BASE_URL = "http://localhost:8000/api/v1";
+// https://yana-p1ew.onrender.com/api/v1 
 
 export async function fetchUserData(userId: string) {
   try {
@@ -71,6 +71,7 @@ export async function fetchRentedVehicles(userId: string) {
       console.log("Error fetching rented vehicles");
     }
     const data = await response.json();
+    console.log(data.data)
     return data.data;
   } catch (err) {
     console.log("Inside fetchData");

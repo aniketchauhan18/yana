@@ -134,4 +134,41 @@ const addMultipleVehicle = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.addMultipleVehicle = addMultipleVehicle;
+// export const checkandRemoveExpiredRentals = async () => {
+//   const currentDate = new Date();
+//   const rentedVehicles = await Vehicle.find({
+//     isAvailable: "No"
+//   });
+//   for (const rentedVehicle of rentedVehicles) {
+//     if (!rentedVehicle.endDate) continue;
+//     if (rentedVehicle.endDate < currentDate ) {
+//       const user = await User.findById(rentedVehicle.ownerId);
+//       console.log(user);
+//       await rentedVehicle.updateOne({
+//         $set: {
+//           isAvailable: "Yes",
+//           bookedBy: undefined,
+//         },
+//       });
+//     }
+//     // const user = await User.findById(req.params.id).populate({
+//     //   path: "rentedVehicles",
+//     //   model: "Vehicle",
+//     // });
+//     // let user = await User.findById(rentedVehicle?.ownerId);
+//     // if (user) {
+//     //   const newUser = user.rentedVehicles.filter(
+//     //     (veh) => {
+//     //       veh.vehicleId.toString() !== rentedVehicle._id.toString()
+//     //     }
+//     //   );
+//     //   console.log(newUser)
+//       // console.log(user)
+//       console.log("---------------------------------------------------")
+//       // await user.save();
+//     }
+//     // const users = await Vehicle.find({}).populate('ownerId');
+//     return registerVehicle;
+//   }
+// checkandRemoveExpiredRentals()
 //# sourceMappingURL=vehicle.controller.js.map

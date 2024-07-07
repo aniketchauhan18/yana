@@ -26,6 +26,8 @@ export interface VehicleProps {
   __v?: number;
   _id: string;
   ownerId: string;
+  startDate?: Date,
+  endDate?: Date;
 }
 function Home(): JSX.Element {
   const [currentData, setCurrentData] = useState<VehicleProps[]>([]);

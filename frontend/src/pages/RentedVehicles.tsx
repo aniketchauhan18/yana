@@ -4,12 +4,6 @@ import { useParams } from "react-router-dom";
 import { VehicleProps } from "./Home";
 import { Button } from "@/components/ui/button";
 
-interface RentedVehicleProps {
-  endDate: string;
-  startDate: string;
-  vehicleId: VehicleProps;
-  _id: string;
-}
 
 function RentedVehicles() {
   const { id } = useParams<string>();
@@ -17,7 +11,7 @@ function RentedVehicles() {
     data: rentedVehicles,
     error,
     isLoading,
-  } = useQuery({
+  } = useQuery<VehicleProps []>({
     queryKey: ["user-rentedVehicles", id],
     queryFn: () => fetchRentedVehicles(id as string),
     staleTime: Infinity,
@@ -26,7 +20,20 @@ function RentedVehicles() {
 
   if (isLoading) return <div>Load kr rha hu biduu</div>;
   if (error) return <div>Error aa gya re biduu</div>;
-  console.log(rentedVehicles);
+  
+
+  const calculateTimeRemaining = (endDate: string) => {
+    const end = new Date(endDate);
+    const now = new Date();
+    const difference = end.getTime() - now.getTime();
+  
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    // const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    // const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+  
+    return `${days}days ${hours}hours`;
+  };  
 
   return (
     <main className="p-6 text-zinc-700">
@@ -35,17 +42,17 @@ function RentedVehicles() {
       </div>
       <div className="border-b mb-3" />
       <div className="grid lg:grid-cols-2 gap-3">
-        {rentedVehicles.map((vehicle: RentedVehicleProps) => {
+        {rentedVehicles?.map((vehicle: VehicleProps) => {
           return (
             <div
-              key={vehicle.vehicleId._id}
+              key={vehicle._id}
               className="p-3 flex flex-col border rounded bg-zinc-50"
             >
               <p className="text-lg">
-                {vehicle.vehicleId.make} ({vehicle.vehicleId.model})
+                {vehicle.make} ({vehicle.model})
               </p>
-              <p className="text-base font-normal">{vehicle.vehicleId.year}</p>
-              <p className="">Time remaining: 2 days</p>
+              <p className="text-base font-normal">{vehicle.year}</p>
+              <p className="">Time remaining: {calculateTimeRemaining(String(vehicle?.endDate))}</p>
               <div className="flex justify-end">
                 <Button className="max-w-sm bg-orange-600 hover:bg-orange-500 text-sm px-2 py-0.5">
                   See details

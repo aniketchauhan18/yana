@@ -158,6 +158,20 @@ function Rent(): JSX.Element {
           const paymentResponse = await storePaymentResponse.json();
           const checkoutUrl = `/payment/checkout?paymentId=${razorpay_payment_id}&orderId=${razorpay_order_id}&signature=${razorpay_signature}&amount=${paymentAmount}&make=${vehicle?.make}&model=${vehicle?.model}&user=${owner.username}`;
           console.log(paymentResponse);
+          const addrentedVehicle = await fetch(
+            `${BASE_URL}/users/add/rented-vehicles/${localStorage.getItem("yana-user")}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("yana-token")}`,
+              },
+              body: JSON.stringify({
+                rentedVehicle: vehicle?._id,
+              }),
+            },
+          );
+          console.log(addrentedVehicle)
           const updateVehicle = await fetch(
             `${BASE_URL}/vehicles/update/${id}`,
             {
@@ -176,23 +190,6 @@ function Rent(): JSX.Element {
           );
           const updateVehicleData = await updateVehicle.json();
           console.log(updateVehicleData);
-          const addrentedVehicle = await fetch(
-            `${BASE_URL}/users/add/rented-vehicles/${localStorage.getItem("yana-user")}`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("yana-token")}`,
-              },
-              body: JSON.stringify({
-                rentedVehicles: {
-                  vehicleId: vehicle._id,
-                  startDate: new Date(startDate),
-                  endDate: new Date(endDate),
-                },
-              }),
-            },
-          );
           if (!addrentedVehicle.ok) {
             alert("error while adding vehicle");
           }

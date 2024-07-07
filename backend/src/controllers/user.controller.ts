@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import mongoose from "mongoose";
 import {
   entityAlreadyExists,
   entityNotFound,
@@ -91,17 +92,21 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const addRentedVehicles = async (req: Request, res: Response) => {
   try {
-    const { rentedVehicles } = req.body;
-    console.log(rentedVehicles);
-    const user = await User.findById(req.params.id);
+    const { rentedVehicle } = req.body;
+    console.log(rentedVehicle)
+    if (!mongoose.Types.ObjectId.isValid(rentedVehicle)) {
+      return res.status(400).json({ message: "Invalid vehicle ID" });
+    }
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      { $push: { rentedVehicles: rentedVehicle } },
+      { new: true, runValidators: true }
+    );
     if (!user) return entityNotFound(res, "User");
-    console.log(user.rentedVehicles);
-    user.rentedVehicles.push(rentedVehicles);
-    await user.save();
     return res.status(200).json({
       message: "User updated successfully",
       data: {
-        rentedVehicles: user.rentedVehicles,
+        rentedVehicles: user?.rentedVehicles,
       },
     });
   } catch (err) {
@@ -114,10 +119,11 @@ export const addRentedVehicles = async (req: Request, res: Response) => {
 export const getRentedVehicles = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.params.id).populate({
-      path: "rentedVehicles.vehicleId",
+      path: "rentedVehicles",
       model: "Vehicle",
     });
     // populating vehicle to eplace the vehicle IDs in the rentedVehicles array with the corresponding vehicle documents.
+    console.log("user", user)
     console.log("rentedVehicles", user?.rentedVehicles);
     if (!user) return entityNotFound(res, "User");
     return res.status(200).json({

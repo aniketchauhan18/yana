@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getRentedVehicles = exports.addRentedVehicles = exports.updateUser = exports.getUserById = exports.loginUser = exports.createUser = void 0;
+const mongoose_1 = __importDefault(require("mongoose"));
 const errorResponse_1 = require("../utils/errorResponse");
 const user_valdiation_1 = require("../validation/user/user.valdiation");
 const user_model_1 = __importDefault(require("../models/user.model"));
@@ -99,18 +100,18 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.updateUser = updateUser;
 const addRentedVehicles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { rentedVehicles } = req.body;
-        console.log(rentedVehicles);
-        const user = yield user_model_1.default.findById(req.params.id);
+        const { rentedVehicle } = req.body;
+        console.log(rentedVehicle);
+        if (!mongoose_1.default.Types.ObjectId.isValid(rentedVehicle)) {
+            return res.status(400).json({ message: "Invalid vehicle ID" });
+        }
+        const user = yield user_model_1.default.findByIdAndUpdate(req.params.id, { $push: { rentedVehicles: rentedVehicle } }, { new: true, runValidators: true });
         if (!user)
             return (0, errorResponse_1.entityNotFound)(res, "User");
-        console.log(user.rentedVehicles);
-        user.rentedVehicles.push(rentedVehicles);
-        yield user.save();
         return res.status(200).json({
             message: "User updated successfully",
             data: {
-                rentedVehicles: user.rentedVehicles,
+                rentedVehicles: user === null || user === void 0 ? void 0 : user.rentedVehicles,
             },
         });
     }
@@ -124,10 +125,11 @@ exports.addRentedVehicles = addRentedVehicles;
 const getRentedVehicles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield user_model_1.default.findById(req.params.id).populate({
-            path: "rentedVehicles.vehicleId",
+            path: "rentedVehicles",
             model: "Vehicle",
         });
         // populating vehicle to eplace the vehicle IDs in the rentedVehicles array with the corresponding vehicle documents.
+        console.log("user", user);
         console.log("rentedVehicles", user === null || user === void 0 ? void 0 : user.rentedVehicles);
         if (!user)
             return (0, errorResponse_1.entityNotFound)(res, "User");
