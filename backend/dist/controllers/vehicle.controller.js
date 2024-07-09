@@ -12,10 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addMultipleVehicle = exports.deleteVehicle = exports.updateVehicle = exports.getVehicleByUserId = exports.getVehicle = exports.getVehicles = exports.registerVehicle = void 0;
+exports.checkandRemoveExpiredRentals = exports.addMultipleVehicle = exports.deleteVehicle = exports.updateVehicle = exports.getVehicleByUserId = exports.getVehicle = exports.getVehicles = exports.registerVehicle = void 0;
 const vehicle_validation_1 = require("../validation/vehicle/vehicle.validation");
 const errorResponse_1 = require("../utils/errorResponse");
 const vehicle_model_1 = __importDefault(require("../models/vehicle.model"));
+const user_model_1 = __importDefault(require("../models/user.model"));
 const registerVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // const userId: string = req.params.userId
     try {
@@ -134,41 +135,44 @@ const addMultipleVehicle = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.addMultipleVehicle = addMultipleVehicle;
-// export const checkandRemoveExpiredRentals = async () => {
-//   const currentDate = new Date();
-//   const rentedVehicles = await Vehicle.find({
-//     isAvailable: "No"
-//   });
-//   for (const rentedVehicle of rentedVehicles) {
-//     if (!rentedVehicle.endDate) continue;
-//     if (rentedVehicle.endDate < currentDate ) {
-//       const user = await User.findById(rentedVehicle.ownerId);
-//       console.log(user);
-//       await rentedVehicle.updateOne({
-//         $set: {
-//           isAvailable: "Yes",
-//           bookedBy: undefined,
-//         },
-//       });
-//     }
-//     // const user = await User.findById(req.params.id).populate({
-//     //   path: "rentedVehicles",
-//     //   model: "Vehicle",
-//     // });
-//     // let user = await User.findById(rentedVehicle?.ownerId);
-//     // if (user) {
-//     //   const newUser = user.rentedVehicles.filter(
-//     //     (veh) => {
-//     //       veh.vehicleId.toString() !== rentedVehicle._id.toString()
-//     //     }
-//     //   );
-//     //   console.log(newUser)
-//       // console.log(user)
-//       console.log("---------------------------------------------------")
-//       // await user.save();
-//     }
-//     // const users = await Vehicle.find({}).populate('ownerId');
-//     return registerVehicle;
-//   }
-// checkandRemoveExpiredRentals()
+const checkandRemoveExpiredRentals = () => __awaiter(void 0, void 0, void 0, function* () {
+    const currentDate = new Date();
+    const rentedVehicles = yield vehicle_model_1.default.find({
+        isAvailable: "No",
+    });
+    for (const rentedVehicle of rentedVehicles) {
+        console.log(rentedVehicle);
+        if (!rentedVehicle.endDate)
+            continue;
+        // console.log(rentedVehicle.endDate);
+        // console.log(rentedVehicle.endDate < currentDate);
+        if (rentedVehicle.endDate < currentDate) {
+            // const user = await User.findById(rentedVehicle.ownerId);
+            // console.log(user);
+            // console.log(registerVehicle);
+            console.log(rentedVehicle._id);
+            const updatedVehicle = yield vehicle_model_1.default.findOneAndUpdate({ _id: rentedVehicle._id }, {
+                $set: {
+                    bookedBy: null,
+                    startDate: null,
+                    endDate: null,
+                    isAvailable: "Yes", // or any other field you want to update
+                },
+            }, { new: true });
+            console.log("hi");
+            const user = yield user_model_1.default.findById(rentedVehicle.bookedBy);
+            // console.log(user);
+            if (user) {
+                user.rentedVehicles = user.rentedVehicles.filter((veh) => {
+                    return veh.toString() !== rentedVehicle._id.toString();
+                });
+                yield user.save();
+                console.log(user);
+            }
+        }
+        // const users = await Vehicle.find({}).populate('ownerId');
+    }
+});
+exports.checkandRemoveExpiredRentals = checkandRemoveExpiredRentals;
+(0, exports.checkandRemoveExpiredRentals)();
 //# sourceMappingURL=vehicle.controller.js.map

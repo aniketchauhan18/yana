@@ -42,7 +42,7 @@ const userSchema = new Schema({
         {
             type: Schema.Types.ObjectId,
             ref: "Vehicle",
-            required: true
+            required: true,
         },
     ],
 }, {

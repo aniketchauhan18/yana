@@ -26,9 +26,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RAZORPAY_KEY_SECRET = exports.RAZORPAY_KEY_ID = exports.SECRET_KEY = exports.MONGODB_URI = exports.PORT = void 0;
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-exports.PORT = parseInt(process.env.PORT || '3000', 10);
+exports.PORT = parseInt(process.env.PORT || "3000", 10);
 exports.MONGODB_URI = process.env.MONGODB_URI;
 exports.SECRET_KEY = process.env.SECRET_KEY;
 exports.RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID;
-exports.RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
+exports.RAZORPAY_KEY_SECRET = process.env
+    .RAZORPAY_KEY_SECRET;
 //# sourceMappingURL=config.js.map

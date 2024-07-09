@@ -50,20 +50,17 @@ function Host(): JSX.Element {
     const userId = localStorage.getItem("yana-user");
 
     try {
-      const response = await fetch(
-        `${BASE_URL}/vehicles/register/${userId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("yana-token")}`,
-          },
-          body: JSON.stringify({
-            ...formObj,
-            ownerId: userId,
-          }),
+      const response = await fetch(`${BASE_URL}/vehicles/register/${userId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("yana-token")}`,
         },
-      );
+        body: JSON.stringify({
+          ...formObj,
+          ownerId: userId,
+        }),
+      });
       console.log(response);
       const data = await response.json();
       console.log(data);
@@ -95,15 +92,18 @@ function Host(): JSX.Element {
             </p>
             <div className="hidden lg:flex lg:flex-col mt-6">
               <p className="text-xl mb-3 bg-orange-400 px-1 text-white">
-                 Benefits of Renting Out Your Vehicle
+                Benefits of Renting Out Your Vehicle
               </p>
               <ul className="text-zinc-500 space-y-3">
                 <li>&bull; Earn extra income effortlessly.</li>
                 <li>&bull; Flexible rental periods to suit your schedule.</li>
                 <li>
-                &bull; Comprehensive insurance coverage for your peace of mind.
+                  &bull; Comprehensive insurance coverage for your peace of
+                  mind.
                 </li>
-                <li>&bull; Join a trusted community of vehicle owners and renters.</li>
+                <li>
+                  &bull; Join a trusted community of vehicle owners and renters.
+                </li>
               </ul>
             </div>
           </div>
@@ -173,7 +173,12 @@ function Host(): JSX.Element {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button type="submit" className="bg-gradient-to-b from-orange-500 to-orange-600 hover:from-orange-500 hover:to-orange-600 transition duration-300">Submit</Button>
+                <Button
+                  type="submit"
+                  className="bg-gradient-to-b from-orange-500 to-orange-600 hover:from-orange-500 hover:to-orange-600 transition duration-300"
+                >
+                  Submit
+                </Button>
               </div>
             </form>
           </div>

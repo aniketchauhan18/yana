@@ -166,12 +166,12 @@ function Profile(): JSX.Element {
               </div>
             </div>
             <div className="w-full flex justify-center mt-5">
-            <Button
-              className="w-full sm:w-96 bg-gradient-to-b from-orange-500 to-orange-600 hover:from-orange-500 hover:to-orange-600 transition duration-300"
-              type="submit"
-            >
-              Update
-            </Button>
+              <Button
+                className="w-full sm:w-96 bg-gradient-to-b from-orange-500 to-orange-600 hover:from-orange-500 hover:to-orange-600 transition duration-300"
+                type="submit"
+              >
+                Update
+              </Button>
             </div>
           </form>
         </div>

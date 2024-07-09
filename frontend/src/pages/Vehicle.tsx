@@ -48,17 +48,14 @@ function Vehicle(): JSX.Element {
     };
     console.log(formObj);
     try {
-      const response = await fetch(
-        `${BASE_URL}/vehicles/update/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("yana-token")}`,
-          },
-          body: JSON.stringify(formObj),
+      const response = await fetch(`${BASE_URL}/vehicles/update/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("yana-token")}`,
         },
-      );
+        body: JSON.stringify(formObj),
+      });
       const data = await response.json();
       if (response.ok) {
         console.log(data);
@@ -167,7 +164,10 @@ function Vehicle(): JSX.Element {
                 </Select>
               </div>
               <div className="flex justify-center">
-                <Button type="submit" className=" w-full max-w-3xl bg-orange-600 hover:bg-orange-500">
+                <Button
+                  type="submit"
+                  className=" w-full max-w-3xl bg-orange-600 hover:bg-orange-500"
+                >
                   Update
                 </Button>
               </div>

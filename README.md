@@ -1,4 +1,5 @@
-# Yana ( Vehicle rental web  application )
+# Yana ( Vehicle rental web application )
+
 Yana is a vehicle rental web application designed to provide users with an efficient, user-friendly platform for renting vehicles of their choice. With a focus on simplicity and convenience, Yana offers a seamless rental experience through its comprehensive set of features.
 
 ## Technology Stack
@@ -11,6 +12,7 @@ Yana is a vehicle rental web application designed to provide users with an effic
 ## Features
 
 ### User Registration and Authentication
+
 - **Registration**: Users can register on the platform by providing necessary details. This step is crucial for identifying and personalizing the user experience.
 
 - **Login**: After registration, users can log in to access their accounts. This process is secured to ensure that only the rightful owner can access the account.
@@ -18,19 +20,20 @@ Yana is a vehicle rental web application designed to provide users with an effic
 - **Authentication**: The platform uses robust authentication mechanisms to secure access and protect user-specific functionalities such as listing a vehicle, booking a vehicle, and more.
 
 ### Vehicle Listing
+
 - **Add Vehicle**: Vehicle owners can list their vehicles on the platform by providing detailed information such as vehicle type, model, year, price, and more.
 
-- **Category Selection**: When listing a vehicle, owners must select a category from options such 
-**Car**
-**Truck**
-**Motorcycle**
-**Bus**
-**Van**
-**SUV**
-**Bike**
-**Bicycle**
-**Other**
-This categorization helps users in finding the right vehicle to meet their needs.
+- **Category Selection**: When listing a vehicle, owners must select a category from options such
+  **Car**
+  **Truck**
+  **Motorcycle**
+  **Bus**
+  **Van**
+  **SUV**
+  **Bike**
+  **Bicycle**
+  **Other**
+  This categorization helps users in finding the right vehicle to meet their needs.
 
 - **Add Vehicle**: Vehicle owners can list their vehicles on the platform by providing detailed information such as vehicle type, model, year, price, and more.
 
@@ -69,17 +72,23 @@ Follow these steps to set up the project locally.
 git clone https://github.com/aniketchauhan18/yana.git
 cd yana
 ```
+
 ### Backend Setup
 
 1. Navigate to the backend directory:
+
 ```bash
 cd backend
 ```
+
 2. Install dependencies:
-```bash 
+
+```bash
   npm install
 ```
+
 3. Create a `.env` file and add your environment variables:
+
 ### Environment Variables
 
 Create a `.env` file in the root directory of your project and add the following environment variables:
@@ -93,19 +102,27 @@ RAZORPAY_KEY_SECRET='Your Razorpay key secret here'
 ```
 
 4. Start the development server:
+
 ```bash
 npm run dev
 ```
+
 ### Frontend Setup
+
 1. Navigate to the backend directory:
+
 ```bash
 cd backend
 ```
+
 2. Install dependencies:
-```bash 
+
+```bash
   npm install
 ```
+
 3. Start the frontend:
+
 ```bash
   npm run dev
 ```

@@ -75,7 +75,7 @@ function Rent(): JSX.Element {
     enabled: !!vehicle?.ownerId,
   });
 
-  console.log(owner)
+  console.log(owner);
 
   if (isVehicleLoading || isOwnerLoading) return <div>Loading...</div>;
   if (vehicleError || ownerError) return <div>Error aa gya re bidu</div>;
@@ -171,7 +171,7 @@ function Rent(): JSX.Element {
               }),
             },
           );
-          console.log(addrentedVehicle)
+          console.log(addrentedVehicle);
           const updateVehicle = await fetch(
             `${BASE_URL}/vehicles/update/${id}`,
             {
@@ -197,7 +197,7 @@ function Rent(): JSX.Element {
         },
       };
 
-      const rzp1: RazorpayInstance = new window.Razorpay(options) ;
+      const rzp1: RazorpayInstance = new window.Razorpay(options);
       rzp1.open();
     } catch (err) {
       console.error("Error in checkout process:", err);
@@ -234,7 +234,10 @@ function Rent(): JSX.Element {
                   <IoCallOutline className=" text-xl " />
                   {owner.number}
                 </div>
-                <a href={`mailto:${owner.email}`} className="flex items-center gap-2 text-zinc-600">
+                <a
+                  href={`mailto:${owner.email}`}
+                  className="flex items-center gap-2 text-zinc-600"
+                >
                   <CiMail className=" text-xl " />
                   {owner.email}
                 </a>
@@ -279,7 +282,12 @@ function Rent(): JSX.Element {
                 Review the details of your upcoming rental.
               </h2>
             </div>
-            <Button onClick={() => checkout(vehicle?.price)} className="bg-gradient-to-b from-orange-500 to-orange-600 hover:from-orange-500 hover:to-orange-600 transition duration-300">Book Now</Button>
+            <Button
+              onClick={() => checkout(vehicle?.price)}
+              className="bg-gradient-to-b from-orange-500 to-orange-600 hover:from-orange-500 hover:to-orange-600 transition duration-300"
+            >
+              Book Now
+            </Button>
           </div>
         </div>
       </div>

@@ -8,6 +8,12 @@
     "sourceMap": true, // Generate source map files for debugging
     "rootDir": "./src" // Explicitly set the root directory
   },
-  "include": ["src/**/*", "src/routes/v1", "src/validation", "src/utils", "src/utils"],
+  "include": [
+    "src/**/*",
+    "src/routes/v1",
+    "src/validation",
+    "src/utils",
+    "src/utils"
+  ],
   "exclude": ["node_modules"]
 }

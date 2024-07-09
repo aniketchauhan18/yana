@@ -1,7 +1,7 @@
 import * as React from "react";
 import Navbar from "./Navbar";
 
-interface MainComponentProps{
+interface MainComponentProps {
   children: React.ReactNode;
 }
 

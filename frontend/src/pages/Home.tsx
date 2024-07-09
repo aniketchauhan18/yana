@@ -26,7 +26,7 @@ export interface VehicleProps {
   __v?: number;
   _id: string;
   ownerId: string;
-  startDate?: Date,
+  startDate?: Date;
   endDate?: Date;
 }
 function Home(): JSX.Element {
@@ -70,7 +70,7 @@ function Home(): JSX.Element {
   }, [filteredVehicle, currentData]);
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error</div>; 
+  if (error) return <div>Error</div>;
 
   const categoryClasses: string =
     "bg-gray-100 rounded-full px-4 py-1 hover:cursor-pointer";
@@ -189,7 +189,11 @@ function Home(): JSX.Element {
           </div>
         </div>
       </div>
-        {filteredData.length === 0 ? <div className="flex justify-center  items-center h-[40dvh]">Selected Vehicle is not available</div> :
+      {filteredData.length === 0 ? (
+        <div className="flex justify-center  items-center h-[40dvh]">
+          Selected Vehicle is not available
+        </div>
+      ) : (
         <div className=" grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 w-full mt-10 rounded-t-lg h-auto">
           {filteredData.map((vehicle: VehicleProps) => {
             return (
@@ -197,9 +201,9 @@ function Home(): JSX.Element {
                 <VehicleCard vehicle={vehicle} />
               </Link>
             );
-          })} 
-        </div>}
-      
+          })}
+        </div>
+      )}
     </main>
   );
 }

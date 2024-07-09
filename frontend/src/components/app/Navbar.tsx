@@ -118,13 +118,13 @@ function Navbar() {
                   </Link>
                 </div>
                 <div className={linkDivClasses}>
-                <Link
-                        to={`/profile/${localStorage.getItem("yana-user")}`}
-                        className={linkDivClasses}
-                        onClick={() => setShowDiv(false)}
-                      >
-                        Profile
-                      </Link>
+                  <Link
+                    to={`/profile/${localStorage.getItem("yana-user")}`}
+                    className={linkDivClasses}
+                    onClick={() => setShowDiv(false)}
+                  >
+                    Profile
+                  </Link>
                 </div>
               </div>
             ) : (

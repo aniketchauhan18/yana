@@ -9,6 +9,7 @@ import {
 import Vehicle from "../models/vehicle.model";
 import { VehicleSchemaType } from "../validation/vehicle/vehicle.validation";
 import User from "../models/user.model";
+import mongoose from "mongoose";
 
 export const registerVehicle = async (req: Request, res: Response) => {
   // const userId: string = req.params.userId
@@ -120,44 +121,46 @@ export const addMultipleVehicle = async (req: Request, res: Response) => {
   }
 };
 
-// export const checkandRemoveExpiredRentals = async () => {
-//   const currentDate = new Date();
-//   const rentedVehicles = await Vehicle.find({
-//     isAvailable: "No"
-//   });
+export const checkandRemoveExpiredRentals = async () => {
+  const currentDate = new Date();
+  const rentedVehicles = await Vehicle.find({
+    isAvailable: "No",
+  });
+  for (const rentedVehicle of rentedVehicles) {
+    console.log(rentedVehicle);
+    if (!rentedVehicle.endDate) continue;
+    // console.log(rentedVehicle.endDate);
+    // console.log(rentedVehicle.endDate < currentDate);
+    if (rentedVehicle.endDate < currentDate) {
+      // const user = await User.findById(rentedVehicle.ownerId);
+      // console.log(user);
+      // console.log(registerVehicle);
+      console.log(rentedVehicle._id);
+      const updatedVehicle = await Vehicle.findOneAndUpdate(
+        { _id: rentedVehicle._id },
+        {
+          $set: {
+            bookedBy: null,
+            startDate: null,
+            endDate: null,
+            isAvailable: "Yes", // or any other field you want to update
+          },
+        },
+        { new: true }, // This option returns the updated document
+      );
+      console.log("hi");
+      const user = await User.findById(rentedVehicle.bookedBy);
+      // console.log(user);
+      if (user) {
+        user.rentedVehicles = user.rentedVehicles.filter((veh) => {
+          return veh.toString() !== rentedVehicle._id.toString();
+        });
+        await user.save();
+        console.log(user);
+      }
+    }
+    // const users = await Vehicle.find({}).populate('ownerId');
+  }
+};
 
-//   for (const rentedVehicle of rentedVehicles) {
-//     if (!rentedVehicle.endDate) continue;
-//     if (rentedVehicle.endDate < currentDate ) {
-//       const user = await User.findById(rentedVehicle.ownerId);
-//       console.log(user);
-//       await rentedVehicle.updateOne({
-//         $set: {
-//           isAvailable: "Yes",
-//           bookedBy: undefined,
-//         },
-//       });
-//     }
-//     // const user = await User.findById(req.params.id).populate({
-//     //   path: "rentedVehicles",
-//     //   model: "Vehicle",
-//     // });
-
-//     // let user = await User.findById(rentedVehicle?.ownerId);
-//     // if (user) {
-//     //   const newUser = user.rentedVehicles.filter(
-//     //     (veh) => {
-//     //       veh.vehicleId.toString() !== rentedVehicle._id.toString()
-//     //     }
-//     //   );
-//     //   console.log(newUser)
-//       // console.log(user)
-//       console.log("---------------------------------------------------")
-//       // await user.save();
-//     }
-//     // const users = await Vehicle.find({}).populate('ownerId');
-//     return registerVehicle;
-//   }
-
-
-// checkandRemoveExpiredRentals()
+checkandRemoveExpiredRentals();

@@ -93,14 +93,14 @@ export const updateUser = async (req: Request, res: Response) => {
 export const addRentedVehicles = async (req: Request, res: Response) => {
   try {
     const { rentedVehicle } = req.body;
-    console.log(rentedVehicle)
+    console.log(rentedVehicle);
     if (!mongoose.Types.ObjectId.isValid(rentedVehicle)) {
       return res.status(400).json({ message: "Invalid vehicle ID" });
     }
     const user = await User.findByIdAndUpdate(
       req.params.id,
       { $push: { rentedVehicles: rentedVehicle } },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
     if (!user) return entityNotFound(res, "User");
     return res.status(200).json({
@@ -123,7 +123,7 @@ export const getRentedVehicles = async (req: Request, res: Response) => {
       model: "Vehicle",
     });
     // populating vehicle to eplace the vehicle IDs in the rentedVehicles array with the corresponding vehicle documents.
-    console.log("user", user)
+    console.log("user", user);
     console.log("rentedVehicles", user?.rentedVehicles);
     if (!user) return entityNotFound(res, "User");
     return res.status(200).json({
