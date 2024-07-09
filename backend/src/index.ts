@@ -20,7 +20,6 @@ connectDB();
 cron.schedule("*/15 * * * *", async () => {
   try {
     await checkandRemoveExpiredRentals();
-    console.log("Scheduled task completed successfully.");
   } catch (error) {
     console.error(
       "Error running scheduled task checkandRemoveExpiredRentals():",

@@ -30,7 +30,6 @@ app.use(express_1.default.json());
 node_cron_1.default.schedule("*/15 * * * *", () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, vehicle_controller_1.checkandRemoveExpiredRentals)();
-        console.log("Scheduled task completed successfully.");
     }
     catch (error) {
         console.error("Error running scheduled task checkandRemoveExpiredRentals():", error);
