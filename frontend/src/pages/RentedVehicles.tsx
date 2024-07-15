@@ -51,7 +51,7 @@ function RentedVehicles() {
               <p className="text-lg">
                 {vehicle.make} ({vehicle.model})
               </p>
-              <p className="text-base font-normal">{vehicle.year}</p>
+              <p className="text-base font-normal">{vehicle.category}</p>
               <p className="">
                 Time remaining:{" "}
                 {calculateTimeRemaining(String(vehicle?.endDate))}

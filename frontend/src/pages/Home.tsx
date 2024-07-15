@@ -78,9 +78,13 @@ function Home(): JSX.Element {
   return (
     <main className="flex flex-col w-full font-poppins overflow-x-hidden p-4">
       <div className="flex flex-col h-52 justify-center items-center">
-        <div className="text-3xl sm:text-6xl flex sm:gap-3 flex-col justify-center items-center font-bold hero-text-gradient h-full">
-          <p>Your Trusted Vehicle</p>
-          <p>Rental Platform</p>
+        <div className="flex flex-col items-center w-full h-auto">
+          <span className="bg-gradient-to-r to-orange-500 from-orange-200 text-transparent bg-clip-text font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-5xl sm:h-[3rem] xl:h-[4rem]">
+            Discovering the rental
+          </span>
+          <span className="bg-gradient-to-r to-orange-500 from-orange-200 text-transparent bg-clip-text  font-bold text-2xl sm:text-3xl lg:text-4xl sm:h-[3rem] xl:text-5xl xl:h-[4rem]">
+            vehicles around you
+          </span>
         </div>
       </div>
       {/* <form className="flex w-full justify-center font-inter">
@@ -181,7 +185,7 @@ function Home(): JSX.Element {
               </DropdownMenuContent>
             </DropdownMenu> */}
             <Input
-              placeholder="Search"
+              placeholder="Search Vehicles"
               className="max-w-36 sm:max-w-52"
               value={filteredVehicle}
               onChange={(e) => setFilteredVehicle(e.target.value)}

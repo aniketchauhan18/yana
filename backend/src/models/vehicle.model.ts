@@ -60,7 +60,7 @@ const VehicleSchema = new Schema(
     },
     bookedBy: {
       type: Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User",
     },
   },
   {

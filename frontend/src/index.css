@@ -31,3 +31,9 @@
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+@layer base {
+  input {
+    @apply bg-gray-100/60 border focus:border-none rounded-lg shadow-none;
+  }
+}

@@ -1,14 +1,18 @@
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { BASE_URL, fetchUserData } from "@/fetchData";
+import AlertComponent from "@/components/app/AlertComponent";
+import { useState } from "react";
 
 function Profile(): JSX.Element {
   // const inputClasses: string = "w-3/4"
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+
   const navigateTo = useNavigate();
   const { id } = useParams();
   const validationSchema = z.object({
@@ -60,9 +64,13 @@ function Profile(): JSX.Element {
       },
       body: JSON.stringify(formObj),
     });
-    if (response.ok) alert("Profile Updated Successfully");
+    if (response.ok) {
+      setShowAlert((prev) => !prev);
+    }
   };
 
+  const inputClasses: string =
+    "bg-gray-100/60 border focus:border-none rounded-lg shadow-none";
   return (
     <main className="font-inter flex items-center flex-col p-5">
       <div className="flex flex-col w-full p-4 rounded ">
@@ -79,12 +87,12 @@ function Profile(): JSX.Element {
           <p className="text-zinc-600 text-sm  mb-5">Manage your settings</p>
         </div>
         <div className="flex flex-col justify-center items-center">
-          <div className="mt-5 border-b pb-5 w-full sm:max-w-2xl">
+          {/* <div className="mt-5 border-b pb-5 w-full sm:max-w-2xl">
             <p>Profile</p>
             <p className="text-sm text-zinc-500">
               This is how others will see you !!
             </p>
-          </div>
+          </div> */}
           <form className="mt-5 w-full sm:max-w-2xl" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-10">
               <div className="flex flex-col gap-1.5">
@@ -94,6 +102,7 @@ function Profile(): JSX.Element {
                   name="username"
                   type="text"
                   defaultValue={user?.username}
+                  className={inputClasses}
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -104,6 +113,7 @@ function Profile(): JSX.Element {
                   type="email"
                   placeholder="aniket@gamil.com"
                   defaultValue={user?.email}
+                  className={inputClasses}
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -113,6 +123,7 @@ function Profile(): JSX.Element {
                   name="dateOfBirth"
                   type="date"
                   defaultValue={user?.dateOfBirth}
+                  className={inputClasses}
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -123,6 +134,7 @@ function Profile(): JSX.Element {
                   placeholder="12345678"
                   type="tel"
                   defaultValue={user?.number}
+                  className={inputClasses}
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -133,6 +145,7 @@ function Profile(): JSX.Element {
                   placeholder="India"
                   type="text"
                   defaultValue={user?.country}
+                  className={inputClasses}
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -143,6 +156,7 @@ function Profile(): JSX.Element {
                   placeholder="Himachal Pradhesh"
                   type="text"
                   defaultValue={user?.state}
+                  className={inputClasses}
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -153,6 +167,7 @@ function Profile(): JSX.Element {
                   placeholder="176125"
                   type="tel"
                   defaultValue={user?.pincode}
+                  className={inputClasses}
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -162,6 +177,7 @@ function Profile(): JSX.Element {
                   name="address"
                   placeholder="Kuch bhi likh de bhai"
                   defaultValue={user?.address}
+                  className={inputClasses}
                 />
               </div>
             </div>
@@ -176,6 +192,14 @@ function Profile(): JSX.Element {
           </form>
         </div>
       </div>
+      {showAlert && (
+        <AlertComponent
+          title="Profile Updated"
+          description="User profile has been updated"
+          duration={2000}
+          onHide={() => setShowAlert(false)}
+        />
+      )}
     </main>
   );
 }

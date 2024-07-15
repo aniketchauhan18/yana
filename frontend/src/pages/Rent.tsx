@@ -128,6 +128,7 @@ function Rent(): JSX.Element {
             !response.razorpay_signature
           ) {
             console.error("Razorpay response is missing required properties.");
+            console.log("Razorpay error");
             return;
           }
           console.log("Payment Successful!");
@@ -154,7 +155,6 @@ function Rent(): JSX.Element {
               }),
             },
           );
-
           const paymentResponse = await storePaymentResponse.json();
           const checkoutUrl = `/payment/checkout?paymentId=${razorpay_payment_id}&orderId=${razorpay_order_id}&signature=${razorpay_signature}&amount=${paymentAmount}&make=${vehicle?.make}&model=${vehicle?.model}&user=${owner.username}`;
           console.log(paymentResponse);
