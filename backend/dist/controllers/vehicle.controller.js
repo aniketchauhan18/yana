@@ -45,6 +45,7 @@ exports.checkandRemoveExpiredRentals =
   exports.getVehicleByUserId =
   exports.getVehicle =
   exports.getVehicles =
+  exports.getFilteredVehicles =
   exports.registerVehicle =
     void 0;
 const vehicle_validation_1 = require("../validation/vehicle/vehicle.validation");
@@ -73,12 +74,39 @@ const registerVehicle = (req, res) =>
       const vehicle = yield vehicle_model_1.default.create(data);
       return res.status(201).json({ message: true, data: vehicle });
     } catch (err) {
-      console.log("inside register vehicle");
+      console.log("inside here register vehicle");
       console.log(err);
       return (0, errorResponse_1.InternalServerError)(res);
     }
   });
 exports.registerVehicle = registerVehicle;
+const getFilteredVehicles = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    try {
+      const query = req.params.query;
+      const category = req.params.category;
+      // console.log(category);
+      // if (category) {
+      //   const vehicles = await Vehicle.find({category});
+      //   return res.status(200).json({data: vehicles})
+      // }
+      if (!query) {
+        const vehicles = yield vehicle_model_1.default.find({});
+        return res.status(200).json({ data: vehicles });
+      }
+      const filteredVehicles = yield vehicle_model_1.default.find({
+        $or: [
+          { model: new RegExp(query, "i") },
+          { make: new RegExp(query, "i") },
+        ],
+      });
+      return res.status(200).json({ data: filteredVehicles });
+    } catch (err) {
+      console.log("inside get filtered register vehicle");
+      return (0, errorResponse_1.InternalServerError)(res);
+    }
+  });
+exports.getFilteredVehicles = getFilteredVehicles;
 const getVehicles = (req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -87,7 +115,7 @@ const getVehicles = (req, res) =>
       });
       return res.status(200).json({ data: vehicles });
     } catch (err) {
-      console.log("inside register vehicle");
+      console.log("inside get vehicle");
       console.log(err);
       return (0, errorResponse_1.InternalServerError)(res);
     }
@@ -100,7 +128,7 @@ const getVehicle = (req, res) =>
       if (!vehicle) return (0, errorResponse_1.entityNotFound)(res, "Vehicle");
       return res.status(200).json({ data: vehicle });
     } catch (err) {
-      console.log("inside register vehicle");
+      console.log("inside get register vehicle");
       console.log(err);
       return (0, errorResponse_1.InternalServerError)(res);
     }
@@ -138,7 +166,7 @@ const updateVehicle = (req, res) =>
           data: updatedVehicle,
         });
     } catch (err) {
-      console.log("inside register vehicle");
+      console.log("inside update vehicle");
       console.log(err);
       return (0, errorResponse_1.InternalServerError)(res);
     }
@@ -154,7 +182,7 @@ const deleteVehicle = (req, res) =>
         .status(200)
         .json({ message: "Vehicle deleted successfully", data: vehicle });
     } catch (err) {
-      console.log("inside register vehicle");
+      console.log("inside delete vehicle");
       console.log(err);
       return (0, errorResponse_1.InternalServerError)(res);
     }
@@ -230,5 +258,5 @@ const checkandRemoveExpiredRentals = () =>
     }
   });
 exports.checkandRemoveExpiredRentals = checkandRemoveExpiredRentals;
-(0, exports.checkandRemoveExpiredRentals)();
+// checkandRemoveExpiredRentals();
 //# sourceMappingURL=vehicle.controller.js.map

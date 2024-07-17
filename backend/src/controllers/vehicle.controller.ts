@@ -9,7 +9,6 @@ import {
 import Vehicle from "../models/vehicle.model";
 import { VehicleSchemaType } from "../validation/vehicle/vehicle.validation";
 import User from "../models/user.model";
-import mongoose from "mongoose";
 
 export const registerVehicle = async (req: Request, res: Response) => {
   // const userId: string = req.params.userId
@@ -27,36 +26,75 @@ export const registerVehicle = async (req: Request, res: Response) => {
     const vehicle = await Vehicle.create(data);
     return res.status(201).json({ message: true, data: vehicle });
   } catch (err) {
-    console.log("inside register vehicle");
+    console.log("inside here register vehicle");
     console.log(err);
     return InternalServerError(res);
   }
 };
 
-export const getVehicles = async (req: Request, res: Response) => {
+export const getFilteredVehicles = async (
+  req: Request,
+  res: Response,
+): Promise<Response> => {
+  try {
+    const query = req.params.query;
+    const category = req.params.category;
+    // console.log(category);
+    // if (category) {
+    //   const vehicles = await Vehicle.find({category});
+    //   return res.status(200).json({data: vehicles})
+    // }
+    if (!query) {
+      const vehicles = await Vehicle.find({});
+      return res.status(200).json({ data: vehicles });
+    }
+    const filteredVehicles = await Vehicle.find({
+      $or: [
+        // to get filtered vehicles for make and model
+        { model: new RegExp(query, "i") },
+        { make: new RegExp(query, "i") },
+      ],
+    });
+    return res.status(200).json({ data: filteredVehicles });
+  } catch (err) {
+    console.log("inside get filtered register vehicle");
+    return InternalServerError(res);
+  }
+};
+
+export const getVehicles = async (
+  req: Request,
+  res: Response,
+): Promise<Response> => {
   try {
     const vehicles = await Vehicle.find({ isAvailable: "Yes" });
     return res.status(200).json({ data: vehicles });
   } catch (err) {
-    console.log("inside register vehicle");
+    console.log("inside get vehicle");
     console.log(err);
     return InternalServerError(res);
   }
 };
 
-export const getVehicle = async (req: Request, res: Response) => {
+export const getVehicle = async (
+  req: Request,
+  res: Response,
+): Promise<Response> => {
   try {
     const vehicle = await Vehicle.findById(req.params.id);
     if (!vehicle) return entityNotFound(res, "Vehicle");
     return res.status(200).json({ data: vehicle });
   } catch (err) {
-    console.log("inside register vehicle");
+    console.log("inside get register vehicle");
     console.log(err);
     return InternalServerError(res);
   }
 };
 
-export const getVehicleByUserId = async (req: Request, res: Response) => {
+export const getVehicleByUserId = async (
+  req: Request,
+  res: Response,
+): Promise<Response> => {
   try {
     const vehicles = await Vehicle.find({
       ownerId: req.params.id,
@@ -68,7 +106,10 @@ export const getVehicleByUserId = async (req: Request, res: Response) => {
   }
 };
 
-export const updateVehicle = async (req: Request, res: Response) => {
+export const updateVehicle = async (
+  req: Request,
+  res: Response,
+): Promise<Response> => {
   try {
     const vehicle = await Vehicle.findByIdAndUpdate(
       { _id: req.params.id }, // vehicle id
@@ -80,26 +121,32 @@ export const updateVehicle = async (req: Request, res: Response) => {
       .status(200)
       .json({ message: "Vehicle updated successfully", data: updatedVehicle });
   } catch (err) {
-    console.log("inside register vehicle");
+    console.log("inside update vehicle");
     console.log(err);
     return InternalServerError(res);
   }
 };
 
-export const deleteVehicle = async (req: Request, res: Response) => {
+export const deleteVehicle = async (
+  req: Request,
+  res: Response,
+): Promise<Response> => {
   try {
     const vehicle = await Vehicle.findByIdAndDelete(req.params.id);
     return res
       .status(200)
       .json({ message: "Vehicle deleted successfully", data: vehicle });
   } catch (err) {
-    console.log("inside register vehicle");
+    console.log("inside delete vehicle");
     console.log(err);
     return InternalServerError(res);
   }
 };
 
-export const addMultipleVehicle = async (req: Request, res: Response) => {
+export const addMultipleVehicle = async (
+  req: Request,
+  res: Response,
+): Promise<Response> => {
   try {
     const vehicles: VehicleSchemaType[] = req.body;
     const checkVehicleExistence = await Vehicle.find({
@@ -163,4 +210,4 @@ export const checkandRemoveExpiredRentals = async () => {
   }
 };
 
-checkandRemoveExpiredRentals();
+// checkandRemoveExpiredRentals();
