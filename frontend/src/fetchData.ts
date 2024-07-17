@@ -1,5 +1,5 @@
-export const BASE_URL = "https://yana-p1ew.onrender.com/api/v1";
-//  http://localhost:3001/api/v1
+export const BASE_URL = "http://localhost:3001/api/v1";
+// https://yana-p1ew.onrender.com/api/v1
 
 export async function fetchUserData(userId: string) {
   try {
@@ -72,5 +72,25 @@ export async function fetchRentedVehicles(userId: string) {
   } catch (err) {
     console.log("Inside fetchData");
     console.log(err);
+  }
+}
+
+export async function fetchFilteredVehicles(query: string, category: string) {
+  try {
+    if (query == "") {
+      console.log("hi");
+      const response = await fetch(`${BASE_URL}/vehicles`);
+      const data = await response.json();
+      return data.data;
+    }
+    console.log(`query: ${query}`);
+    const response = await fetch(
+      `http://localhost:3001/api/v1/vehicles/filter/${query}/${category}`,
+    );
+    const data = await response.json();
+    console.log(data);
+    return data.data;
+  } catch (err) {
+    console.log("error inside filtered vehicles");
   }
 }

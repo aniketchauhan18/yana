@@ -11,6 +11,8 @@ import Vehicle from "./pages/Vehicle";
 import Rent from "./pages/Rent";
 import Checkout from "./pages/Checkout";
 import RentedVehicles from "./pages/RentedVehicles";
+// import Cards from "./components/app/Cards";
+import Search from "./components/app/Search";
 
 function App() {
   return (
@@ -59,6 +61,7 @@ function App() {
               </MainComponent>
             }
           />
+          <Route path="/cards" element={<Search />} />
           <Route path="/host/vehicle/:id" element={<Vehicle />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />

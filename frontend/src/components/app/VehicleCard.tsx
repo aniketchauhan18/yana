@@ -8,6 +8,7 @@ function VehicleCard({ vehicle }: { vehicle: VehicleProps }) {
         <div className="bg-zinc-200 rounded-lg">
           <img
             src={VehicleImg}
+            height={200}
             alt="Vehicle Image"
             className="bg-center object-cover w-full h-full rounded-lg"
           />

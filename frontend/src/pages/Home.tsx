@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 // } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 // import { Button } from "@/components/ui/button";
+import { Suspense } from "react";
 
 export interface VehicleProps {
   ImageUrls?: string[];
@@ -104,7 +105,7 @@ function Home(): JSX.Element {
         </div>
       </form> */}
       <div className="my-10 flex w-full justify-center">
-        <div className="inline-flex overflow-x-auto hide-scrollbar  p-2 rounded-full space-x-3">
+        <div className="inline-flex overflow-x-auto hide-scrollbar p-2 rounded-full space-x-3">
           <div
             className={categoryClasses}
             onClick={() => handleCategory("Car")}
@@ -198,15 +199,17 @@ function Home(): JSX.Element {
           Selected Vehicle is not available
         </div>
       ) : (
-        <div className=" grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 w-full mt-10 rounded-t-lg h-auto">
-          {filteredData.map((vehicle: VehicleProps) => {
-            return (
-              <Link to={`/rent/vehicle/${vehicle._id}`} key={vehicle._id}>
-                <VehicleCard vehicle={vehicle} />
-              </Link>
-            );
-          })}
-        </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <div className="grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 w-full mt-10 rounded-t-lg h-auto">
+            {filteredData.map((vehicle: VehicleProps) => {
+              return (
+                <Link to={`/rent/vehicle/${vehicle._id}`} key={vehicle._id}>
+                  <VehicleCard vehicle={vehicle} />
+                </Link>
+              );
+            })}
+          </div>
+        </Suspense>
       )}
     </main>
   );
