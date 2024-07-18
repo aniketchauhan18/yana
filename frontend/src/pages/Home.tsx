@@ -1,216 +1,113 @@
-import { useState, useEffect, useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-import VehicleCard from "@/components/app/VehicleCard";
-import { fetchVehicles } from "@/fetchData";
+import BlurFade from "@/components/magicui/blur-fade";
+import { Button } from "@/components/ui/button";
+import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
+import { CalendarCheckIcon, CarIcon, DollarSignIcon, MapPinIcon, ShieldCheckIcon } from "lucide-react";
 import { Link } from "react-router-dom";
-// import {
-//   DropdownMenu,
-//   DropdownMenuTrigger,
-//   DropdownMenuContent,
-//   DropdownMenuRadioGroup,
-//   DropdownMenuRadioItem,
-// } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-// import { Button } from "@/components/ui/button";
-import { Suspense } from "react";
 
-export interface VehicleProps {
-  ImageUrls?: string[];
-  make: string;
-  category: string;
-  createdAt?: string;
-  updatedAt?: string;
-  isAvailable: string;
-  model: string;
-  price: number;
-  year: string;
-  __v?: number;
-  _id: string;
-  ownerId: string;
-  startDate?: Date;
-  endDate?: Date;
-}
+
 function Home(): JSX.Element {
-  const [currentData, setCurrentData] = useState<VehicleProps[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [filteredVehicle, setFilteredVehicle] = useState<string>("");
-
-  const {
-    data: vehicles,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["vehiclesData"],
-    queryFn: () => fetchVehicles(),
-    staleTime: Infinity,
-  });
-
-  useEffect(() => {
-    if (vehicles) {
-      if (selectedCategory) {
-        const filteredData = vehicles.filter(
-          (vehicle: VehicleProps) => vehicle.category === selectedCategory,
-        );
-        setCurrentData(filteredData);
-      } else {
-        setCurrentData(vehicles);
-      }
-    }
-  }, [vehicles, selectedCategory]);
-
-  const handleCategory = (category: string) => {
-    setSelectedCategory(category);
-  };
-
-  const filteredData = useMemo(() => {
-    return currentData?.filter((vehicle: VehicleProps) => {
-      return filteredVehicle
-        ? vehicle.make.toLowerCase().includes(filteredVehicle.toLowerCase())
-        : true;
-    });
-  }, [filteredVehicle, currentData]);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error</div>;
-
-  const categoryClasses: string =
-    "bg-gray-100 rounded-full px-4 py-1 hover:cursor-pointer";
 
   return (
     <main className="flex flex-col w-full font-poppins overflow-x-hidden p-4">
-      <div className="flex flex-col h-52 justify-center items-center">
+      <div className="flex flex-col h-44 justify-center items-center">
         <div className="flex flex-col items-center w-full h-auto">
-          <span className="bg-gradient-to-r to-orange-500 from-orange-200 text-transparent bg-clip-text font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-5xl sm:h-[3rem] xl:h-[4rem]">
-            Discovering the rental
-          </span>
-          <span className="bg-gradient-to-r to-orange-500 from-orange-200 text-transparent bg-clip-text  font-bold text-2xl sm:text-3xl lg:text-4xl sm:h-[3rem] xl:text-5xl xl:h-[4rem]">
-            vehicles around you
-          </span>
+          <BlurFade delay={0.25} inView>
+            <span className="bg-gradient-to-r to-orange-500 from-orange-200 text-transparent bg-clip-text font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-5xl sm:h-[3rem] xl:h-[4rem]">
+              Discovering the rental
+            </span>
+          </BlurFade>
+          <BlurFade delay={0.25} inView>
+            <span className="bg-gradient-to-r to-orange-500 from-orange-200 text-transparent bg-clip-text  font-bold text-2xl sm:text-3xl lg:text-4xl sm:h-[3rem] xl:text-5xl xl:h-[4rem]">
+              vehicles around you
+            </span>
+          </BlurFade>
         </div>
       </div>
-      {/* <form className="flex w-full justify-center font-inter">
-        <div className="border pl-3  items-center rounded-full flex gap-3">
-          <div className=" ">
-            <input
-              type="text"
-              className="focus:outline-none"
-              placeholder="Location"
-            />
-          </div>
-          <div className="flex justify-center items-center text-2xl text-white">
-            <button className="rounded-full p-2 bg-red-500">
-              <CiSearch />
-            </button>
-          </div>
+      <BlurFade delay={0.35} inView>
+        <div className="w-full flex  justify-center gap-3">
+          <a target="_blank" href="https://www.linkedin.com/in/aniketchauhan18/">
+            <Button variant="outline" className="gap-1 rounded-full">
+            <LinkedInLogoIcon className="text-blue-800"/>
+              LinkedIn
+            </Button>
+          </a>
+          <a target="_blank" href="https://github.com/aniketchauhan18/yana">
+            <Button variant="outline" className="gap-1 rounded-full bg-zinc-800 text-white hover:bg-zinc-700 hover:text-white">
+            <GitHubLogoIcon />
+              Github
+            </Button>
+          </a>
         </div>
-      </form> */}
-      <div className="my-10 flex w-full justify-center">
-        <div className="inline-flex overflow-x-auto hide-scrollbar p-2 rounded-full space-x-3">
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Car")}
-          >
-            Car
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Truck")}
-          >
-            Truck
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Motorcycle")}
-          >
-            Motorcycle
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Bus")}
-          >
-            Bus
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Van")}
-          >
-            Van
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Suv")}
-          >
-            Suv
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Bike")}
-          >
-            Bike
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Bicycle")}
-          >
-            Bicycle
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Other")}
-          >
-            Other
-          </div>
-        </div>
+      </BlurFade>
+      <div className="text-center mt-10">
+        <Link to='/search'>
+          <Button variant="outline">See Rental Vehicles</Button>
+        </Link>
       </div>
-      <div className="border-b" />
-      <div className="mt-4 p-3 flex sm:flex-row items-center justify-between">
-        <div className="flex justify-between mt-3 sm:mt-0 space-x-4 w-full">
-          <p className="font-bold text-zinc-700 text-base sm:text-2xl flex items-center">
-            Available Vehicles
+      <div className="mt-10">
+        <div className="w-full text-center mt-10 mb-10">
+          <p className="text-xl font-bold">
+            Why Choose Our Vehicle Rental App?
           </p>
-          <div className="flex ">
-            {/* <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="flex items-center gap-2">
-                  Sort by:
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-16 border">
-                <DropdownMenuRadioGroup className="font-inter ">
-                  <DropdownMenuRadioItem value="price">
-                    Price
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="rating">Rating</DropdownMenuRadioItem> 
-                  <DropdownMenuRadioItem value="make">Make</DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
-              </DropdownMenuContent>
-            </DropdownMenu> */}
-            <Input
-              placeholder="Search Vehicles"
-              className="max-w-36 sm:max-w-52"
-              value={filteredVehicle}
-              onChange={(e) => setFilteredVehicle(e.target.value)}
-            />
+        </div>
+        <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 font-poppins mt-5">
+          <div className="p-3 border rounded-md">
+            <div className="flex gap-2">
+              <div className="bg-orange-400 text-white max-w-10 rounded-md p-2">
+                <CarIcon />
+              </div>
+              <p className="flex items-center font-semibold">
+              Wide Selection
+              </p>
+            </div>
+            <p className="text-zinc-500 pt-4 text-sm ">Choose from a wide range of vehicles, from compact cars to luxury SUVs, to fit your needs and budget.</p>
+          </div>
+          <div className="p-3 border rounded-md">
+            <div className="flex gap-2">
+              <div className="bg-green-400 text-white max-w-10 rounded-md p-2">
+                <DollarSignIcon />
+              </div>
+              <p className="flex items-center font-semibold">
+                Competitive Pricing
+              </p>
+            </div>
+            <p className="text-zinc-500 pt-4 text-sm ">Enjoy competitive pricing and exclusive deals, making your rental experience more affordable.</p>
+          </div>
+          <div className="p-3 border rounded-md">
+            <div className="flex gap-2">
+              <div className="bg-red-400 text-white max-w-10 rounded-md p-2">
+                <CalendarCheckIcon />
+              </div>
+              <p className="flex items-center font-semibold">
+                Seamless Booking
+              </p>
+            </div>
+            <p className="text-zinc-500 pt-4 text-sm ">Our user-friendly platform makes booking your rental car a breeze, with a simple and intuitive process.</p>
+          </div>
+          <div className="p-3 border rounded-md">
+            <div className="flex gap-2">
+              <div className="bg-blue-400 text-white max-w-10 rounded-md p-2">
+                <ShieldCheckIcon />
+              </div>
+              <p className="flex items-center font-semibold">
+                Trusted Brand
+              </p>
+            </div>
+            <p className="text-zinc-500 pt-4 text-sm ">As a trusted brand in the industry, you can count on us to provide a reliable and hassle-free rental experience.</p>
+          </div>
+          <div className="p-3 border rounded-md">
+            <div className="flex gap-2">
+              <div className="bg-yellow-400 text-white max-w-10 rounded-md p-2">
+                <MapPinIcon />
+              </div>
+              <p className="flex items-center font-semibold">
+                Convenient Locations
+              </p>
+            </div>
+            <p className="text-zinc-500 pt-4 text-sm ">Pick up and drop off your rental at our convenient locations across the city.</p>
           </div>
         </div>
       </div>
-      {filteredData.length === 0 ? (
-        <div className="flex justify-center  items-center h-[40dvh]">
-          Selected Vehicle is not available
-        </div>
-      ) : (
-        <Suspense fallback={<div>Loading...</div>}>
-          <div className="grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 w-full mt-10 rounded-t-lg h-auto">
-            {filteredData.map((vehicle: VehicleProps) => {
-              return (
-                <Link to={`/rent/vehicle/${vehicle._id}`} key={vehicle._id}>
-                  <VehicleCard vehicle={vehicle} />
-                </Link>
-              );
-            })}
-          </div>
-        </Suspense>
-      )}
     </main>
   );
 }

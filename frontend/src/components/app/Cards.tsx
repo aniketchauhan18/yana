@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchFilteredVehicles } from "@/fetchData";
 import VehicleCard from "./VehicleCard";
 import { CardsSkeleton } from "@/skeletons";
+
 export interface VehicleProps {
   ImageUrls?: string[];
   make: string;

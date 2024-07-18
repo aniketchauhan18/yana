@@ -1,7 +1,7 @@
-import { VehicleProps } from "@/pages/Home";
 import VehicleImg from "../../assets/hakon-sataoen-qyfco1nfMtg-unsplash.jpg";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+import { VehicleProps } from "./Cards";
 
 function VehicleCard({ vehicle }: { vehicle: VehicleProps }) {
   return (

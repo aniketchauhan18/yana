@@ -1,32 +1,46 @@
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+
 import { cn } from "@/lib/utils";
 
-export default function RetroGrid({ className }: { className?: string }) {
+export interface MagicCardProps {
+  children: React.ReactNode;
+  className?: string;
+  gradientSize?: number;
+  gradientColor?: string;
+  gradientOpacity?: number;
+}
+
+export function MagicCard({
+  children,
+  className = "",
+  gradientSize = 200,
+  gradientColor = "#262626",
+}: MagicCardProps) {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
   return (
     <div
+      onMouseMove={(e) => {
+        const { left, top } = e.currentTarget.getBoundingClientRect();
+
+        mouseX.set(e.clientX - left);
+        mouseY.set(e.clientY - top);
+      }}
       className={cn(
-        "pointer-events-none absolute h-full w-full overflow-hidden opacity-50 [perspective:200px]",
+        "group relative flex size-full overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-900 border text-black dark:text-white",
         className,
       )}
     >
-      {/* Grid */}
-      <div className="absolute inset-0 [transform:rotateX(35deg)]">
-        <div
-          className={cn(
-            "animate-grid",
-
-            "[background-repeat:repeat] [background-size:60px_60px] [height:300vh] [inset:0%_0px] [margin-left:-50%] [transform-origin:100%_0_0] [width:600vw]",
-
-            // Light Styles
-            "[background-image:linear-gradient(to_right,rgba(0,0,0,0.3)_1px,transparent_0),linear-gradient(to_bottom,rgba(0,0,0,0.3)_1px,transparent_0)]",
-
-            // Dark styles
-            "dark:[background-image:linear-gradient(to_right,rgba(255,255,255,0.2)_1px,transparent_0),linear-gradient(to_bottom,rgba(255,255,255,0.2)_1px,transparent_0)]",
-          )}
-        />
-      </div>
-
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent to-90% dark:from-black" />
+      <div className="relative z-10">{children}</div>
+      <motion.div
+        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
+        style={{
+          background: useMotionTemplate`
+						radial-gradient(${gradientSize}px circle at ${mouseX}px ${mouseY}px, ${gradientColor}, transparent 100%)
+					`,
+        }}
+      />
     </div>
   );
 }
