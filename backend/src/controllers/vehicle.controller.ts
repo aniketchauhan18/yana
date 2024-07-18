@@ -44,17 +44,25 @@ export const getFilteredVehicles = async (
     //   const vehicles = await Vehicle.find({category});
     //   return res.status(200).json({data: vehicles})
     // }
-    if (!query) {
-      const vehicles = await Vehicle.find({});
-      return res.status(200).json({ data: vehicles });
-    }
+
+    // if (!query && !category) {
+    //   console.log("inside get category vehicles");
+    //   const vehicles = await Vehicle.find({});
+    //   return res.status(200).json({ data: vehicles });
+    // }
     const filteredVehicles = await Vehicle.find({
-      $or: [
-        // to get filtered vehicles for make and model
-        { model: new RegExp(query, "i") },
-        { make: new RegExp(query, "i") },
+      $and: [
+        {
+          $or: [
+            { model: new RegExp(query, "i") },
+            { make: new RegExp(query, "i") },
+          ],
+        },
+        { category: category },
       ],
     });
+    console.log(filteredVehicles);
+    console.log("inside get filtered vehicles");
     return res.status(200).json({ data: filteredVehicles });
   } catch (err) {
     console.log("inside get filtered register vehicle");
