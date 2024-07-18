@@ -45,16 +45,18 @@ exports.registerVehicle = registerVehicle;
 const getFilteredVehicles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const query = req.params.query;
-        const category = req.params.category;
+        const category = req.query.category;
+        console.log(query);
         // console.log(category);
-        // if (category) {
-        //   const vehicles = await Vehicle.find({category});
-        //   return res.status(200).json({data: vehicles})
-        // }
-        // if (!query && !category) {
-        //   console.log("inside get category vehicles");
-        //   const vehicles = await Vehicle.find({});
-        //   return res.status(200).json({ data: vehicles });
+        if (!category) {
+            const filteredVehicles = yield vehicle_model_1.default.find({
+                $or: [
+                    { model: new RegExp(query, "i") },
+                    { make: new RegExp(query, "i") },
+                ],
+            });
+            return res.status(200).json({ data: filteredVehicles });
+        }
         // }
         const filteredVehicles = yield vehicle_model_1.default.find({
             $and: [

@@ -38,17 +38,18 @@ export const getFilteredVehicles = async (
 ): Promise<Response> => {
   try {
     const query = req.params.query;
-    const category = req.params.category;
+    const category = req.query.category as string;
+    console.log(query)
     // console.log(category);
-    // if (category) {
-    //   const vehicles = await Vehicle.find({category});
-    //   return res.status(200).json({data: vehicles})
-    // }
-
-    // if (!query && !category) {
-    //   console.log("inside get category vehicles");
-    //   const vehicles = await Vehicle.find({});
-    //   return res.status(200).json({ data: vehicles });
+    if (!category) {
+      const filteredVehicles = await Vehicle.find({
+        $or: [
+          { model: new RegExp(query, "i") },
+          { make: new RegExp(query, "i") },
+        ],
+      });
+      return res.status(200).json({ data: filteredVehicles });
+    }
     // }
     const filteredVehicles = await Vehicle.find({
       $and: [

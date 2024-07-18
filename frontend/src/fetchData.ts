@@ -1,5 +1,5 @@
 export const BASE_URL = "https://yana-p1ew.onrender.com/api/v1";
-//  http://localhost:3001/api/v1
+// http://localhost:3001/api/v1   
 
 export async function fetchUserData(userId: string) {
   try {
@@ -83,15 +83,11 @@ export async function fetchFilteredVehicles(query: string, category: string) {
       const data = await response.json();
       return data.data;
     }
-    console.log(`query: ${query}`);
     const newQuery = query;
     if (newQuery == "") {
       query = ".*";
     }
-    console.log(query);
-    const response = await fetch(
-      `http://localhost:3001/api/v1/vehicles/filter/${query}/${category}`,
-    );
+    const response = await fetch(`${BASE_URL}/vehicles/filter/${query}?category=${category}`);
     const data = await response.json();
     console.log(data);
     return data.data;
