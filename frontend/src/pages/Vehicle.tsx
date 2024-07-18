@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { VehicleProps } from "./Home";
+import { VehicleProps } from "@/components/app/Cards";
 import * as React from "react";
 
 function Vehicle(): JSX.Element {
