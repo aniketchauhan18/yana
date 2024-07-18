@@ -2,15 +2,13 @@ import { useSearchParams } from "react-router-dom";
 import { Input } from "../ui/input";
 import { useDebouncedCallback } from "use-debounce";
 import Cards from "./Cards";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectGroup,
-//   SelectItem,
-//   SelectLabel,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
   console.log(searchParams.get("query"));
@@ -24,6 +22,7 @@ export default function Search() {
     } else {
       params.delete("query");
     }
+
     const prevQuery = Object.fromEntries(searchParams);
     const newQuery = {
       ...prevQuery,
@@ -46,18 +45,25 @@ export default function Search() {
     };
     setSearchParams(newQuery);
   };
-  const categoryClasses: string =
-    "bg-gray-100 rounded-full px-4 py-1 hover:cursor-pointer";
 
   return (
     <div className="p-4">
-      <div className="flex justify-end">
-        {/* <Select>
+      <div className="flex justify-between gap-5 p-2">
+        <Input
+          type="text"
+          placeholder="Search"
+          onChange={(e) => handleSearch(e.target.value)}
+          className="max-w-xs"
+          defaultValue={query}
+        />
+        <Select onValueChange={(value: string) => handleCategory(value)}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Category" />
           </SelectTrigger>
-          <SelectContent  onClick={() => handleCategory("Car")}>
-            <SelectItem value="Car" onClick={() => handleCategory("Car")}>Car</SelectItem>
+          <SelectContent onClick={() => handleCategory("Car")}>
+            <SelectItem value="Car" onClick={() => handleCategory("Car")}>
+              Car
+            </SelectItem>
             <SelectItem value="Truck">Truck</SelectItem>
             <SelectItem value="Motorcycle">Motorycle</SelectItem>
             <SelectItem value="Bus">Bus</SelectItem>
@@ -67,72 +73,7 @@ export default function Search() {
             <SelectItem value="Bicycle">Bicycle</SelectItem>
             <SelectItem value="Other">Other</SelectItem>
           </SelectContent>
-        </Select> */}
-        <Input
-          type="text"
-          placeholder="Search"
-          onChange={(e) => handleSearch(e.target.value)}
-          className="max-w-xs"
-          defaultValue={query}
-        />
-      </div>
-      <div className="my-10 flex w-full justify-center">
-        <div className="inline-flex overflow-x-auto hide-scrollbar p-2 rounded-full space-x-3">
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Car")}
-          >
-            Car
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Truck")}
-          >
-            Truck
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Motorcycle")}
-          >
-            Motorcycle
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Bus")}
-          >
-            Bus
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Van")}
-          >
-            Van
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Suv")}
-          >
-            Suv
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Bike")}
-          >
-            Bike
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Bicycle")}
-          >
-            Bicycle
-          </div>
-          <div
-            className={categoryClasses}
-            onClick={() => handleCategory("Other")}
-          >
-            Other
-          </div>
-        </div>
+        </Select>
       </div>
       <Cards query={query} category={category} />
     </div>

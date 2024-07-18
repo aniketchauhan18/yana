@@ -61,7 +61,7 @@ function App() {
               </MainComponent>
             }
           />
-          <Route path="/cards" element={<Search />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/host/vehicle/:id" element={<Vehicle />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />

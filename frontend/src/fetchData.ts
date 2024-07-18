@@ -77,13 +77,18 @@ export async function fetchRentedVehicles(userId: string) {
 
 export async function fetchFilteredVehicles(query: string, category: string) {
   try {
-    if (query == "") {
+    if (query == "" && category == "") {
       console.log("hi");
       const response = await fetch(`${BASE_URL}/vehicles`);
       const data = await response.json();
       return data.data;
     }
     console.log(`query: ${query}`);
+    const newQuery = query;
+    if (newQuery == "") {
+      query = ".*";
+    }
+    console.log(query);
     const response = await fetch(
       `http://localhost:3001/api/v1/vehicles/filter/${query}/${category}`,
     );
