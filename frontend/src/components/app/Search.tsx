@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { Input } from "../ui/input";
 import { useDebouncedCallback } from "use-debounce";
-import Cards from "./Cards";
+import Cards from "./VehicleCards";
 import {
   Select,
   SelectContent,

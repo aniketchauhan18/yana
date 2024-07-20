@@ -39,7 +39,7 @@ export const getFilteredVehicles = async (
   try {
     const query = req.params.query;
     const category = req.query.category as string;
-    console.log(query)
+    console.log(query);
     // console.log(category);
     if (!category) {
       const filteredVehicles = await Vehicle.find({

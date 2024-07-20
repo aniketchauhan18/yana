@@ -77,7 +77,12 @@ function Rent(): JSX.Element {
 
   console.log(owner);
 
-  if (isVehicleLoading || isOwnerLoading) return <div>Loading...</div>;
+  if (isVehicleLoading || isOwnerLoading)
+    return (
+      <div className="min-h-screen flex justify-center items-center ">
+        Loading...
+      </div>
+    );
   if (vehicleError || ownerError) return <div>Error aa gya re bidu</div>;
 
   const checkout = async (amount: number | string) => {
@@ -205,7 +210,7 @@ function Rent(): JSX.Element {
   };
 
   return (
-    <main className="p-6 text-zinc-700  flex items-center w-full mb-24">
+    <main className="p-6 text-zinc-700  flex items-center w-full mb-24 ">
       <div className="grid lg:grid-cols-2 space-y-10 w-full space-x-4">
         <div className="flex justify-center items-center flex-col w-full">
           <div className="flex justify-center items-center w-full flex-col space-y-3">

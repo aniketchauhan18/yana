@@ -49,11 +49,7 @@ export default function Cards({
       {vehicles.length >= 1 ? (
         <div className="grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 w-full mt-10 rounded-t-lg h-auto">
           {vehicles.map((vehicle: VehicleProps) => {
-            return (
-              // <Link to={`/rent/vehicle/${vehicle._id}`} key={vehicle._id}>
-              <VehicleCard vehicle={vehicle} key={vehicle._id} />
-              // </Link>
-            );
+            return <VehicleCard vehicle={vehicle} key={vehicle._id} />;
           })}
         </div>
       ) : (

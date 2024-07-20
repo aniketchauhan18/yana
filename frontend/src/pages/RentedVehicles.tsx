@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchRentedVehicles } from "@/fetchData";
 import { useParams } from "react-router-dom";
-import { VehicleProps } from "@/components/app/Cards";
+import { VehicleProps } from "@/components/app/VehicleCards";
 import { Button } from "@/components/ui/button";
 
 function RentedVehicles() {

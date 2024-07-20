@@ -38,8 +38,16 @@ function Profile(): JSX.Element {
     staleTime: Infinity,
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error</div>;
+  if (isLoading)
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        Loading...
+      </div>
+    );
+  if (error)
+    return (
+      <div className="min-h-screen flex justify-center items-center">Error</div>
+    );
 
   console.log(user?.username);
 

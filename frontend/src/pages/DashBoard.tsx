@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUserVehicleData } from "@/fetchData";
-import { VehicleProps } from "@/components/app/Cards";
+import { VehicleProps } from "@/components/app/VehicleCards";
 import VehicleCard from "@/components/app/VehicleCard";
 
 function DashBoard(): JSX.Element {

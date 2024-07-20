@@ -1,4 +1,4 @@
-export const CardsSkeleton = () => {
+export function CardsSkeleton() {
   return (
     <div className="grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 w-full mt-10 rounded-t-lg h-auto">
       <CardSkeleton />
@@ -11,9 +11,9 @@ export const CardsSkeleton = () => {
       <CardSkeleton />
     </div>
   );
-};
+}
 
-export const CardSkeleton = () => {
+export function CardSkeleton() {
   return (
     <div className="text-zinc-700 min-w-[370px] max-h-96 max-w-96 justify-center p-2 rounded">
       <div className="w-full flex flex-col p-2 rounded-lg border hover:cursor-pointer animate-pulse">
@@ -26,4 +26,4 @@ export const CardSkeleton = () => {
       </div>
     </div>
   );
-};
+}

@@ -9,6 +9,10 @@
   font-family: "Inter", sans-serif;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
 .bg-svg-pattern {
   background-image: url(./assets/yana-bg.svg);
   background-size: cover;

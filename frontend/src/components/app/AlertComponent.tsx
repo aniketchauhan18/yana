@@ -18,12 +18,12 @@ function AlertComponent({ title, description, duration, onHide }: AlertProps) {
     }, duration);
 
     return () => clearTimeout(timer); // Cleanup timer on component unmount
-  }, [duration]);
+  }, [duration, onHide]);
   if (!show) return null;
   return (
-    <div className="fixed top-5 left-50 w-10/12">
+    <div className="fixed top-5 left-1/2 transform -translate-x-1/2 max-w-lg">
       <Alert>
-        <AlertTitle>{title}</AlertTitle>
+        <AlertTitle className="font-bold">{title}</AlertTitle>
         <AlertDescription>{description}</AlertDescription>
       </Alert>
     </div>
