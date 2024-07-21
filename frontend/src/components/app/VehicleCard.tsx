@@ -40,10 +40,7 @@ function VehicleCard({ vehicle }: { vehicle: VehicleProps }) {
             {vehicle.isAvailable == "Yes" ? "Available" : "Not Available"}
           </div>
           <div className="w-full">
-            <Button
-              variant="outline"
-              className="shadow-none mt-2 w-full hover:bg-white"
-            >
+            <Button variant="outline" className="shadow-none mt-2 w-full ">
               RENT NOW
             </Button>
           </div>

@@ -77,6 +77,13 @@ function Navbar() {
                 <DropdownMenuItem>
                   <Link to={"/become-host/vehicle"}>Yana your Vehicle</Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link
+                    to={`/user/${localStorage.getItem("yana-user")}/rented-vehicles`}
+                  >
+                    Rented vehicles
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -151,6 +158,12 @@ function Navbar() {
                 onClick={() => setShowDiv(false)}
               >
                 Yana Your Vehicle
+              </Link>
+              <Link
+                to={`/user/${localStorage.getItem("yana-user")}/rented-vehicles`}
+                onClick={() => setShowDiv(false)}
+              >
+                Rented vehicles
               </Link>
             </div>
           </nav>

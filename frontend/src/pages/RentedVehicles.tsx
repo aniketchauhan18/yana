@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchRentedVehicles } from "@/fetchData";
 import { useParams } from "react-router-dom";
 import { VehicleProps } from "@/components/app/VehicleCards";
-import { Button } from "@/components/ui/button";
 
 function RentedVehicles() {
   const { id } = useParams<string>();
@@ -17,8 +16,18 @@ function RentedVehicles() {
     enabled: !!id,
   });
 
-  if (isLoading) return <div>Load kr rha hu biduu</div>;
-  if (error) return <div>Error aa gya re biduu</div>;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        Load kr rha hu biduu
+      </div>
+    );
+  if (error)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        Error aa gya re biduu
+      </div>
+    );
 
   const calculateTimeRemaining = (endDate: string) => {
     const end = new Date(endDate);
@@ -35,36 +44,43 @@ function RentedVehicles() {
     return `${days}days ${hours}hours`;
   };
 
+  // nullish ( ?? ) operator is the nullish coalescing operator
   return (
-    <main className="p-6 text-zinc-700">
+    <main className="p-6 text-zinc-700 min-h-screen">
       <div className="mb-2">
         <h1 className="text-2xl font-semibold">Your rented vehicles</h1>
       </div>
       <div className="border-b mb-3" />
-      <div className="grid lg:grid-cols-2 gap-3">
-        {rentedVehicles?.map((vehicle: VehicleProps) => {
-          return (
-            <div
-              key={vehicle._id}
-              className="p-3 flex flex-col border rounded bg-zinc-50"
-            >
-              <p className="text-lg">
-                {vehicle.make} ({vehicle.model})
-              </p>
-              <p className="text-base font-normal">{vehicle.category}</p>
-              <p className="">
-                Time remaining:{" "}
-                {calculateTimeRemaining(String(vehicle?.endDate))}
-              </p>
-              <div className="flex justify-end">
-                <Button className="max-w-sm bg-orange-600 hover:bg-orange-500 text-sm px-2 py-0.5">
-                  See details
-                </Button>
+      {(rentedVehicles?.length ?? 0 >= 1) ? (
+        <div className="grid lg:grid-cols-2 gap-3">
+          {rentedVehicles?.map((vehicle: VehicleProps) => {
+            return (
+              <div
+                key={vehicle._id}
+                className="p-3 flex flex-col border rounded bg-zinc-50"
+              >
+                <p className="text-lg">
+                  {vehicle.make} ({vehicle.model})
+                </p>
+                <p className="text-base font-normal">{vehicle.category}</p>
+                <p className="">
+                  Time remaining:{" "}
+                  {calculateTimeRemaining(String(vehicle?.endDate))}
+                </p>
+                <div className="flex justify-end mt-2">
+                  <div className="max-w-sm hover:cursor-pointer text-white px-2 py-1 rounded-md bg-orange-600 hover:bg-orange-500 text-sm">
+                    See details
+                  </div>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div>
+          <p className="text-lg">No vehicles rented</p>
+        </div>
+      )}
     </main>
   );
 }

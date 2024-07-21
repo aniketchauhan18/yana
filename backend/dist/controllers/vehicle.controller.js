@@ -92,6 +92,7 @@ const getFilteredVehicles = (req, res) =>
           $or: [
             { model: new RegExp(query, "i") },
             { make: new RegExp(query, "i") },
+            { isAvailable: "Yes" },
           ],
         });
         return res.status(200).json({ data: filteredVehicles });
