@@ -123,7 +123,6 @@ export const getRentedVehicles = async (req: Request, res: Response) => {
       model: "Vehicle",
     });
     // populating vehicle to eplace the vehicle IDs in the rentedVehicles array with the corresponding vehicle documents.
-    console.log("user", user);
     console.log("rentedVehicles", user?.rentedVehicles);
     if (!user) return entityNotFound(res, "User");
     return res.status(200).json({

@@ -186,7 +186,6 @@ const getRentedVehicles = (req, res) =>
         model: "Vehicle",
       });
       // populating vehicle to eplace the vehicle IDs in the rentedVehicles array with the corresponding vehicle documents.
-      console.log("user", user);
       console.log(
         "rentedVehicles",
         user === null || user === void 0 ? void 0 : user.rentedVehicles,

@@ -104,6 +104,7 @@ const getFilteredVehicles = (req, res) =>
             $or: [
               { model: new RegExp(query, "i") },
               { make: new RegExp(query, "i") },
+              { isAvailable: "Yes" },
             ],
           },
           { category: category },

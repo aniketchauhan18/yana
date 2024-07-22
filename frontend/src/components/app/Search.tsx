@@ -17,13 +17,14 @@ export default function Search() {
 
   const params = new URLSearchParams();
   const handleSearch = useDebouncedCallback((term: string) => {
+    params.set("page", "1");
     if (term) {
       params.set("query", term.trim());
     } else {
       params.delete("query");
     }
 
-    const prevQuery = Object.fromEntries(searchParams);
+    const prevQuery = Object.fromEntries(searchParams); // convert searchParams to key value pair and make an object
     const newQuery = {
       ...prevQuery,
       query: term.trim(),
@@ -33,6 +34,8 @@ export default function Search() {
   }, 300);
 
   const handleCategory = (category: string) => {
+    params.set("page", "1");
+    setSearchParams(params);
     if (category) {
       params.set("category", category.trim());
     } else {
