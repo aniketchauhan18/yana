@@ -1,9 +1,7 @@
 "use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const vehicle_controller_1 = require("../../controllers/vehicle.controller");
@@ -13,26 +11,9 @@ router.route("/").get(vehicle_controller_1.getVehicles);
 router.route("/:id").get(vehicle_controller_1.getVehicle);
 router.route("/filter/:query").get(vehicle_controller_1.getFilteredVehicles);
 router.route("/user/:id").get(vehicle_controller_1.getVehicleByUserId);
-router
-  .route("/register/:userId")
-  .post(
-    auth_middleware_1.authenticateJwt,
-    vehicle_controller_1.registerVehicle,
-  );
-router
-  .route("/registerMany/:userId")
-  .post(
-    auth_middleware_1.authenticateJwt,
-    vehicle_controller_1.addMultipleVehicle,
-  );
-router
-  .route("/update/:id")
-  .put(auth_middleware_1.authenticateJwt, vehicle_controller_1.updateVehicle);
-router
-  .route("/delete/:id")
-  .delete(
-    auth_middleware_1.authenticateJwt,
-    vehicle_controller_1.deleteVehicle,
-  );
+router.route("/register/:userId").post(auth_middleware_1.authenticateJwt, vehicle_controller_1.registerVehicle);
+router.route("/registerMany/:userId").post(auth_middleware_1.authenticateJwt, vehicle_controller_1.addMultipleVehicle);
+router.route("/update/:id").put(auth_middleware_1.authenticateJwt, vehicle_controller_1.updateVehicle);
+router.route("/delete/:id").delete(auth_middleware_1.authenticateJwt, vehicle_controller_1.deleteVehicle);
 exports.default = router;
 //# sourceMappingURL=vehicle.routes.js.map

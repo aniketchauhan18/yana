@@ -37,18 +37,23 @@ export const getFilteredVehicles = async (
   res: Response,
 ): Promise<Response> => {
   try {
-    const query = req.params.query;
+    const query = req.params.query as string;
     const category = req.query.category as string;
     console.log(query);
     // console.log(category);
     if (!category) {
       const filteredVehicles = await Vehicle.find({
-        $or: [
-          { model: new RegExp(query, "i") },
-          { make: new RegExp(query, "i") },
-          { isAvailable: "Yes" },
-        ],
+        $and: [
+          {
+            $or: [
+              { model: new RegExp(query, "i") },
+              { make: new RegExp(query, "i") }
+            ],
+          },
+          {isAvailable: "Yes"}
+        ]
       });
+      console.log("Category is not present");
       return res.status(200).json({ data: filteredVehicles });
     }
     // }
@@ -57,15 +62,14 @@ export const getFilteredVehicles = async (
         {
           $or: [
             { model: new RegExp(query, "i") },
-            { make: new RegExp(query, "i") },
-            { isAvailable: "Yes" },
+            { make: new RegExp(query, "i") }
           ],
         },
         { category: category },
+        {isAvailable: "Yes"}
       ],
     });
-    console.log(filteredVehicles);
-    console.log("inside get filtered vehicles");
+    console.log("both category and query are present");
     return res.status(200).json({ data: filteredVehicles });
   } catch (err) {
     console.log("inside get filtered register vehicle");
