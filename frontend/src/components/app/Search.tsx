@@ -17,7 +17,6 @@ export default function Search() {
 
   const params = new URLSearchParams();
   const handleSearch = useDebouncedCallback((term: string) => {
-    params.set("page", "1");
     if (term) {
       params.set("query", term.trim());
     } else {
@@ -34,8 +33,6 @@ export default function Search() {
   }, 300);
 
   const handleCategory = (category: string) => {
-    params.set("page", "1");
-    setSearchParams(params);
     if (category) {
       params.set("category", category.trim());
     } else {

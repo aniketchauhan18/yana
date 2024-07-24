@@ -40,7 +40,6 @@ export default function Cards({
   if (isLoading) return <CardsSkeleton />;
   if (error) return <div>Error</div>;
 
-  console.log(vehicles);
   return (
     <div>
       {/* <div className="flex justify-end">

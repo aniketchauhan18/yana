@@ -16,7 +16,7 @@ function VehicleCard({ vehicle }: { vehicle: VehicleProps }) {
     <div className="flex text-zinc-700 min-h-auto min-w-[300px] max-h-96 max-w-96 justify-center p-2 rounded ">
       <Link
         to={`/rent/vehicle/${vehicle._id}`}
-        className="w-full flex flex-col p-2 rounded-lg shadow-sm border border-zinc-100/10"
+        className="w-full flex flex-col p-2 rounded-lg h-fit shadow-sm border border-zinc-100/10"
       >
         <div className="bg-zinc-200 rounded-lg">
           <img
