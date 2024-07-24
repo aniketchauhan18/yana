@@ -270,5 +270,5 @@ const checkandRemoveExpiredRentals = () =>
     }
   });
 exports.checkandRemoveExpiredRentals = checkandRemoveExpiredRentals;
-// checkandRemoveExpiredRentals();
+(0, exports.checkandRemoveExpiredRentals)();
 //# sourceMappingURL=vehicle.controller.js.map

@@ -221,4 +221,4 @@ export const checkandRemoveExpiredRentals = async () => {
   }
 };
 
-// checkandRemoveExpiredRentals();
+checkandRemoveExpiredRentals();

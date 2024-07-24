@@ -104,7 +104,7 @@ function Navbar() {
               className="text-5xl hover:cursor-pointer"
             />
           </div>
-          <nav className="space-y-4 gap-6 text-2xl w-full flex flex-col justify-center items-center h-full">
+          <nav className=" gap-6 text-2xl w-full flex flex-col justify-center items-center h-full">
             <div className={linkDivClasses}>
               <Link to="/" onClick={() => setShowDiv(false)}>
                 Yana
@@ -135,7 +135,7 @@ function Navbar() {
                 </div>
               </div>
             ) : (
-              <div className={`flex-col space-y-7`}>
+              <div className={`flex flex-col gap-8`}>
                 <Link
                   className={linkDivClasses}
                   to={"/login"}
@@ -152,9 +152,10 @@ function Navbar() {
                 </Link>
               </div>
             )}
-            <div className={linkDivClasses}>
+            <div className={` flex flex-col gap-8 items-center`}>
               <Link
                 to={"/become-host/vehicle"}
+                className={linkDivClasses}
                 onClick={() => setShowDiv(false)}
               >
                 Yana Your Vehicle
@@ -162,6 +163,7 @@ function Navbar() {
               <Link
                 to={`/user/${localStorage.getItem("yana-user")}/rented-vehicles`}
                 onClick={() => setShowDiv(false)}
+                className={linkDivClasses}
               >
                 Rented vehicles
               </Link>
