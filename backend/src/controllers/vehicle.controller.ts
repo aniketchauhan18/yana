@@ -47,11 +47,11 @@ export const getFilteredVehicles = async (
           {
             $or: [
               { model: new RegExp(query, "i") },
-              { make: new RegExp(query, "i") }
+              { make: new RegExp(query, "i") },
             ],
           },
-          {isAvailable: "Yes"}
-        ]
+          { isAvailable: "Yes" },
+        ],
       });
       console.log("Category is not present");
       return res.status(200).json({ data: filteredVehicles });
@@ -62,11 +62,11 @@ export const getFilteredVehicles = async (
         {
           $or: [
             { model: new RegExp(query, "i") },
-            { make: new RegExp(query, "i") }
+            { make: new RegExp(query, "i") },
           ],
         },
         { category: category },
-        {isAvailable: "Yes"}
+        { isAvailable: "Yes" },
       ],
     });
     console.log("both category and query are present");

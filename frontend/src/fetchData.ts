@@ -1,5 +1,5 @@
 export const BASE_URL = "https://yana-p1ew.onrender.com/api/v1";
-//  https://yana-p1ew.onrender.com/api/v1 http://localhost:3001/api/v1 
+//  https://yana-p1ew.onrender.com/api/v1 http://localhost:3001/api/v1
 
 export async function fetchUserData(userId: string) {
   try {
@@ -81,7 +81,7 @@ export async function fetchFilteredVehicles(query: string, category: string) {
       console.log("hi");
       const response = await fetch(`${BASE_URL}/vehicles`);
       const data = await response.json();
-      console.log("query and categories are not present")
+      console.log("query and categories are not present");
       return data.data;
     }
     const newQuery = query;
